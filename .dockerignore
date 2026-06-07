@@ -1,0 +1,10 @@
+node_modules
+Frontend/node_modules
+Backend/node_modules
+Backend/midldleware   # Include your old typo directory just in case
+.env
+*.env
+dist
+build
+.git
+.vscode
