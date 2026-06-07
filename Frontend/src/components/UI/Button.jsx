@@ -1,5 +1,3 @@
-import React from 'react'
-
 const Button = ({ children, variant = 'primary', icon: Icon, className = '', ...props }) => {
   const variants = {
     primary: 'bg-pdc-orange hover:bg-opacity-90 text-white',
