@@ -50,7 +50,7 @@ const Footer = () => {
             </div>
           </div>
           <div className="text-xs text-right font-medium leading-tight">
-            COPYRIGHT @ 2023 PERSONALITY<br />
+            COPYRIGHT © {new Date().getFullYear()} PERSONALITY<br />
             DEVELOPMENT CLUB (PDC)
           </div>
         </div>
