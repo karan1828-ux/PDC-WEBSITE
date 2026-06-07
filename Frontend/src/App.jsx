@@ -1,8 +1,13 @@
-import React from 'react'
+import { Routes, Route } from 'react-router-dom'
+import Navbar from './components/Layout/Navbar'
+import Footer from './components/Layout/Footer'
 
-const App = () => {
+function App() {
   return (
-    <div>App</div>
+    <>
+      <Navbar />
+      <Footer />
+    </>
   )
 }
 
