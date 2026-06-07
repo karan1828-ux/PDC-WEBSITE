@@ -7,7 +7,7 @@ const Button = ({ children, variant = 'primary', icon: Icon, className = '', ...
 
   return (
     <button
-      className={`flex items-center justify-center gap-2 py-2 px-6 rounded-md font-medium transition-all duration-200 uppercase tracking-wide ${variants[variant]} ${className}`}
+      className={`flex items-center justify-center gap-2 py-2 px-6 rounded-md font-medium transition-all duration-200 uppercase tracking-wide ${variants[variant] ?? variants.primary} ${className}`}
       {...props}
     >
       {Icon && <Icon className="w-5 h-5" />}
