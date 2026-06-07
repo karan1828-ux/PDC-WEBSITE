@@ -1,8 +1,6 @@
-import React from 'react'
 import { Link } from 'react-router-dom'
 import { Search, Key } from 'lucide-react'
 import LogoPlaceholder from '../UI/LogoPlaceholder'
-import Button from '../UI/Button'
 
 const Navbar = () => {
   return (
@@ -20,12 +18,16 @@ const Navbar = () => {
         </div>
 
         <div className="flex items-center gap-6">
-          <Link to="/login">
-            <Button variant="outline" icon={Key} className="rounded-full px-4 py-1.5 text-xs font-semibold">
-              Login
-            </Button>
+          <Link
+            to="/login"
+            className="rounded-full px-4 py-1.5 text-xs font-semibold border border-pdc-gold text-pdc-gold flex items-center gap-2 uppercase"
+          >
+            <Key className="h-4 w-4" />
+            Login
           </Link>
-          <Search className="w-6 h-6 text-pdc-blue cursor-pointer" />
+          <button type="button" aria-label="Search" className="text-pdc-blue hover:text-pdc-orange transition-colors">
+            <Search className="w-6 h-6" />
+          </button>
         </div>
       </div>
     </nav>
