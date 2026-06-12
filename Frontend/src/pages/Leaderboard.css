@@ -135,7 +135,7 @@
 }
 
 .leaderboard-row--alt {
-  background-color: rgba(248, 250, 252, 0.3);
+  background-color: #fefce8; /* Slightly yellowish */
 }
 
 .leaderboard-table td {
