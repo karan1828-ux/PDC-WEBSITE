@@ -1,21 +1,31 @@
+import { useState } from 'react'
 import Navbar from '../components/Navbar/Navbar'
 import AnnouncementBar from '../components/AnnouncementBar/AnnouncementBar'
 import Hero from '../components/Hero/Hero'
 import PastEvents from '../components/PastEvents/PastEvents'
 import Footer from '../components/Footer/Footer'
+import PDCAuth from '../components/Login-Page/Login'
 import './Home.css'
 
 function Home() {
+  const [showAuth, setShowAuth] = useState(false)
+
   return (
     <main className="home">
       <header className="home__header">
-        <Navbar />
+        <Navbar onLoginClick={() => setShowAuth(true)} onHomeClick={() => setShowAuth(false)} />
         <AnnouncementBar />
       </header>
 
-      <Hero />
-      <PastEvents />
-      <Footer />
+      {showAuth ? (
+        <PDCAuth onClose={() => setShowAuth(false)} />
+      ) : (
+        <>
+          <Hero />
+          <PastEvents />
+          <Footer />
+        </>
+      )}
     </main>
   )
 }

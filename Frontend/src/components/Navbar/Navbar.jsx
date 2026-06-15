@@ -9,16 +9,23 @@ const NAV_LINKS = [
   { label: 'ACHIEVEMENTS', href: '#achievements' },
 ]
 
-function Navbar() {
+function Navbar({ onLoginClick, onHomeClick }) {
   const [menuOpen, setMenuOpen] = useState(false)
 
   const toggleMenu = () => setMenuOpen((prev) => !prev)
   const closeMenu = () => setMenuOpen(false)
 
+  const handleHomeClick = () => {
+    if (onHomeClick) {
+      onHomeClick()
+    }
+    closeMenu()
+  }
+
   return (
     <nav className="navbar" aria-label="Main navigation">
       <div className="navbar__container">
-        <a href="#home" className="navbar__logo" aria-label="PDC Home">
+        <a href="#home" className="navbar__logo" aria-label="PDC Home" onClick={handleHomeClick}>
           <Logo />
         </a>
 
@@ -40,7 +47,12 @@ function Navbar() {
               <a
                 href={link.href}
                 className={`navbar__link ${link.active ? 'navbar__link--active' : ''}`}
-                onClick={closeMenu}
+                onClick={() => {
+                  if (onHomeClick) {
+                    onHomeClick()
+                  }
+                  closeMenu()
+                }}
               >
                 {link.label}
               </a>
@@ -49,7 +61,7 @@ function Navbar() {
         </ul>
 
         <div className="navbar__actions">
-          <button type="button" className="navbar__login">
+          <button type="button" className="navbar__login" onClick={onLoginClick}>
             <svg
               className="navbar__login-icon"
               width="14"
