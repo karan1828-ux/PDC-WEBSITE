@@ -23,6 +23,27 @@ const KeyIcon = (props) => (
   </svg>
 );
 
+const MailIcon = (props) => (
+  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+    <polyline points="22,6 12,13 2,6" />
+  </svg>
+);
+
+const AtSignIcon = (props) => (
+  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+    <circle cx="12" cy="12" r="4" />
+    <path d="M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-3.92 7.94" />
+  </svg>
+);
+
+const ShieldCheckIcon = (props) => (
+  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+    <polyline points="9 11 11 13 15 9" />
+  </svg>
+);
+
 const EyeIcon = (props) => (
   <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
     <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
@@ -108,7 +129,7 @@ const Toast = ({ message, type }) => {
 
 // --- Panels ---
 
-const LoginPanel = () => {
+const LoginPanel = ({ onSwitch }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showPwd, setShowPwd] = useState(false);
@@ -170,6 +191,116 @@ const LoginPanel = () => {
       </form>
 
       <Toast message={toast?.message} type={toast?.type} />
+
+      <p className="auth-panel__switch-prompt">
+        New to PDC?{" "}
+        <button onClick={onSwitch} className="auth-panel__switch-btn">
+          Register
+        </button>{" "}
+        and join our community.
+      </p>
+    </>
+  );
+};
+
+// --- Comment: Register Page Panel for account creation ---
+const RegisterPanel = ({ onSwitch }) => {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirm, setConfirm] = useState("");
+  const [showPwd, setShowPwd] = useState(false);
+  const [showConfirm, setShowConfirm] = useState(false);
+  const [toast, setToast] = useState(null);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!firstName || !lastName || !email || !username || !password || !confirm) {
+      setToast({ message: "⚠ Please fill in all fields.", type: "error" });
+    } else if (password !== confirm) {
+      setToast({ message: "⚠ Passwords do not match.", type: "error" });
+    } else {
+      setToast({ message: "✓ Account created! Welcome to PDC.", type: "success" });
+    }
+  };
+
+  return (
+    <>
+      <h1 className="auth-panel__title">Create Account</h1>
+      <p className="auth-panel__subtitle">
+        Begin your journey of self-discovery and growth.
+      </p>
+
+      <form onSubmit={handleSubmit}>
+        <div className="auth-panel__row">
+          <InputField
+            icon={UserIcon}
+            placeholder="First Name"
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
+          />
+          <InputField
+            icon={UserIcon}
+            placeholder="Last Name"
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
+          />
+        </div>
+
+        <InputField
+          icon={MailIcon}
+          type="email"
+          placeholder="Email Address"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+
+        <InputField
+          icon={AtSignIcon}
+          placeholder="Username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+        />
+
+        <p className="auth-panel__section-title">Secure your account</p>
+
+        <InputField
+          icon={LockIcon}
+          type={showPwd ? "text" : "password"}
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          rightIcon={showPwd ? <EyeIcon /> : <EyeOffIcon />}
+          onRightIconClick={() => setShowPwd(!showPwd)}
+        />
+
+        <InputField
+          icon={ShieldCheckIcon}
+          type={showConfirm ? "text" : "password"}
+          placeholder="Confirm Password"
+          value={confirm}
+          onChange={(e) => setConfirm(e.target.value)}
+          rightIcon={showConfirm ? <EyeIcon /> : <EyeOffIcon />}
+          onRightIconClick={() => setShowConfirm(!showConfirm)}
+        />
+
+        <button type="submit" className="auth-panel__submit-btn">
+          <UserIcon />
+          Create Account
+        </button>
+      </form>
+
+      <Toast message={toast?.message} type={toast?.type} />
+
+      <p className="auth-panel__switch-prompt">
+        Already a member?{" "}
+        <button onClick={onSwitch} className="auth-panel__switch-btn">
+          Log In
+        </button>{" "}
+        to your account.
+      </p>
     </>
   );
 };
@@ -177,6 +308,8 @@ const LoginPanel = () => {
 // --- Main Container ---
 
 export default function PDCAuth({ onClose }) {
+  const [view, setView] = useState("login");
+
   return (
     <div className="auth-container">
       <div className="auth-card">
@@ -221,7 +354,11 @@ export default function PDCAuth({ onClose }) {
         </div>
 
         {/* Panels */}
-        <LoginPanel />
+        {view === "login" ? (
+          <LoginPanel onSwitch={() => setView("register")} />
+        ) : (
+          <RegisterPanel onSwitch={() => setView("login")} />
+        )}
       </div>
     </div>
   );
