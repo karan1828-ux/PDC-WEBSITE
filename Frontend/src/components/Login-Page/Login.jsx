@@ -129,7 +129,55 @@ const Toast = ({ message, type }) => {
 
 // --- Panels ---
 
-const LoginPanel = ({ onSwitch }) => {
+// --- Comment: Forgot Password Recovery Panel ---
+const ForgotPanel = ({ onSwitch }) => {
+  const [email, setEmail] = useState("");
+  const [toast, setToast] = useState(null);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!email.trim()) {
+      setToast({ message: "⚠ Please enter your email address.", type: "error" });
+    } else {
+      setToast({ message: "✓ Reset link sent! Check your inbox.", type: "success" });
+    }
+  };
+
+  return (
+    <>
+      <h1 className="auth-panel__title">Reset Password</h1>
+      <p className="auth-panel__subtitle">
+        Enter your email address to recover your account.
+      </p>
+
+      <form onSubmit={handleSubmit}>
+        <InputField
+          icon={MailIcon}
+          type="email"
+          placeholder="Email Address"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+
+        <button type="submit" className="auth-panel__submit-btn">
+          <MailIcon />
+          Send Reset Link
+        </button>
+      </form>
+
+      <Toast message={toast?.message} type={toast?.type} />
+
+      <p className="auth-panel__switch-prompt">
+        Remember your password?{" "}
+        <button onClick={onSwitch} className="auth-panel__switch-btn">
+          Log In
+        </button>
+      </p>
+    </>
+  );
+};
+
+const LoginPanel = ({ onSwitch, onForgot }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showPwd, setShowPwd] = useState(false);
@@ -179,7 +227,7 @@ const LoginPanel = ({ onSwitch }) => {
             />
             Remember Me
           </label>
-          <button type="button" className="auth-panel__forgot">
+          <button type="button" className="auth-panel__forgot" onClick={onForgot}>
             Forgot Password?
           </button>
         </div>
@@ -355,9 +403,11 @@ export default function PDCAuth({ onClose }) {
 
         {/* Panels */}
         {view === "login" ? (
-          <LoginPanel onSwitch={() => setView("register")} />
-        ) : (
+          <LoginPanel onSwitch={() => setView("register")} onForgot={() => setView("forgot")} />
+        ) : view === "register" ? (
           <RegisterPanel onSwitch={() => setView("login")} />
+        ) : (
+          <ForgotPanel onSwitch={() => setView("login")} />
         )}
       </div>
     </div>
