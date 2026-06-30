@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import Navbar from '../components/Navbar/Navbar'
 import Footer from '../components/Footer/Footer'
-import './Leaderboard.css'
 
 const initialMembers = [
   {
@@ -50,37 +49,37 @@ function Leaderboard() {
   });
 
   return (
-    <div className="leaderboard-page">
-      <header className="leaderboard-header">
+    <div className="bg-[#f8fafc] text-[#1e293b] flex flex-col min-h-screen">
+      <header className="sticky top-0 z-50 bg-white">
         <Navbar />
       </header>
 
       {/* BEGIN: FilterBar */}
-      <div className="filter-bar">
-        <div className="filter-bar__container">
-          <div className="filter-group">
-            <span className="filter-label">Sort By:</span>
-            <div className="filter-select-wrapper">
+      <div className="bg-[#1e293b] text-white py-2 mt-[64px]">
+        <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row flex-wrap justify-center items-center gap-4 sm:gap-8 text-sm">
+          <div className="flex items-center gap-2">
+            <span className="text-[#cbd5e1]">Sort By:</span>
+            <div className="relative">
               <select 
-                className="filter-select"
+                className="bg-transparent border-b border-[#94a3b8] outline-none pr-6 pl-1 py-1 cursor-pointer text-white appearance-none focus:border-white w-full"
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
               >
-                <option value="highest">Highest %</option>
-                <option value="lowest">Lowest %</option>
+                <option value="highest" className="text-[#0f172a]">Highest %</option>
+                <option value="lowest" className="text-[#0f172a]">Lowest %</option>
               </select>
-              <i className="fa-solid fa-chevron-down filter-icon"></i>
+              <i className="fa-solid fa-chevron-down absolute right-0 top-2 text-[10px] pointer-events-none"></i>
             </div>
           </div>
-          <div className="filter-group">
-            <span className="filter-label">Period:</span>
-            <div className="filter-select-wrapper">
-              <select className="filter-select">
-                <option>Current Semester</option>
-                <option>Previous Semester</option>
-                <option>Yearly</option>
+          <div className="flex items-center gap-2">
+            <span className="text-[#cbd5e1]">Period:</span>
+            <div className="relative">
+              <select className="bg-transparent border-b border-[#94a3b8] outline-none pr-6 pl-1 py-1 cursor-pointer text-white appearance-none focus:border-white w-full">
+                <option className="text-[#0f172a]">Current Semester</option>
+                <option className="text-[#0f172a]">Previous Semester</option>
+                <option className="text-[#0f172a]">Yearly</option>
               </select>
-              <i className="fa-solid fa-chevron-down filter-icon"></i>
+              <i className="fa-solid fa-chevron-down absolute right-0 top-2 text-[10px] pointer-events-none"></i>
             </div>
           </div>
         </div>
@@ -88,21 +87,21 @@ function Leaderboard() {
       {/* END: FilterBar */}
 
       {/* BEGIN: LeaderboardSection */}
-      <main className="hero-gradient leaderboard-section">
-        <div className="leaderboard-container">
-          <h2 className="leaderboard-title">
+      <main className="flex-1 py-8 sm:py-16 px-4 hero-gradient">
+        <div className="max-w-[56rem] mx-auto">
+          <h2 className="text-center text-[#fdba74] text-xl sm:text-2xl md:text-3xl font-bold tracking-widest mb-10 uppercase">
             Top Performing Members Leaderboard
           </h2>
           {/* Leaderboard Card */}
-          <div className="leaderboard-card" data-purpose="leaderboard-container">
-            <div className="leaderboard-table-wrapper">
-              <table className="leaderboard-table">
+          <div className="bg-white rounded-2xl shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25)] overflow-hidden" data-purpose="leaderboard-container">
+            <div className="overflow-x-auto">
+              <table className="w-full text-left border-collapse">
                 <thead>
                   <tr>
-                    <th>Rank</th>
-                    <th>Member Name</th>
-                    <th className="text-center">Personality %</th>
-                    <th>Recent Achievement</th>
+                    <th className="text-[#0f172a] font-bold p-4 sm:p-6 border-b border-[#f1f5f9] whitespace-nowrap">Rank</th>
+                    <th className="text-[#0f172a] font-bold p-4 sm:p-6 border-b border-[#f1f5f9] whitespace-nowrap">Member Name</th>
+                    <th className="text-center text-[#0f172a] font-bold p-4 sm:p-6 border-b border-[#f1f5f9] whitespace-nowrap">Personality %</th>
+                    <th className="text-[#0f172a] font-bold p-4 sm:p-6 border-b border-[#f1f5f9] whitespace-nowrap">Recent Achievement</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -111,30 +110,30 @@ function Leaderboard() {
                     const isFirstPlace = displayRank === 1;
 
                     return (
-                      <tr key={member.id} className={`leaderboard-row ${index % 2 !== 0 ? 'leaderboard-row--alt' : ''}`}>
-                        <td>
+                      <tr key={member.id} className={`border-b border-[#f8fafc] transition-colors duration-300 hover:bg-[#f8fafc] ${index % 2 !== 0 ? 'bg-[#fefce8]' : ''}`}>
+                        <td className="p-4 sm:p-6">
                           {isFirstPlace ? (
-                            <div className="rank-container">
-                              <i className="fa-solid fa-trophy rank-icon"></i>
+                            <div className="flex items-center gap-2 font-semibold">
+                              <i className="fa-solid fa-trophy text-[#fb923c] text-lg"></i>
                               <span>1st</span>
                             </div>
                           ) : (
-                            <div className="rank-number">{displayRank}</div>
+                            <div className="pl-7 font-semibold">{displayRank}</div>
                           )}
                         </td>
-                        <td>
-                          <div className="member-info">
-                            <img alt={member.name} className="member-avatar" src={member.image} />
-                            <span className="member-name">{member.name}</span>
+                        <td className="p-4 sm:p-6">
+                          <div className="flex items-center gap-4">
+                            <img alt={member.name} className="w-10 h-10 rounded-full border-2 border-[#e2e8f0] object-cover" src={member.image} />
+                            <span className="font-medium whitespace-nowrap">{member.name}</span>
                           </div>
                         </td>
-                        <td className="text-center">
-                          <div className="score-container">
-                            <span className="score-value">{member.score.toFixed(1)}%</span>
-                            {member.hasStar && <i className="fa-solid fa-star score-icon"></i>}
+                        <td className="text-center p-4 sm:p-6">
+                          <div className="flex items-center justify-center gap-2">
+                            <span className="text-xl font-extrabold text-[#1e293b]">{member.score.toFixed(1)}%</span>
+                            {member.hasStar && <i className="fa-solid fa-star text-[#fb923c] text-xs"></i>}
                           </div>
                         </td>
-                        <td className="achievement-text">{member.achievement}</td>
+                        <td className="text-[#64748b] italic p-4 sm:p-6">{member.achievement}</td>
                       </tr>
                     );
                   })}

@@ -1,23 +1,17 @@
-import { useState, useEffect } from 'react'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Home from './pages/Home'
 import Leaderboard from './pages/Leaderboard'
-import './App.css'
 
 function App() {
-  const [currentHash, setCurrentHash] = useState(window.location.hash);
-
-  useEffect(() => {
-    const handleHashChange = () => {
-      setCurrentHash(window.location.hash);
-    };
-    window.addEventListener('hashchange', handleHashChange);
-    return () => window.removeEventListener('hashchange', handleHashChange);
-  }, []);
-
   return (
-    <div className="app">
-      {currentHash === '#personality' ? <Leaderboard /> : <Home />}
-    </div>
+    <Router>
+      <div className="min-h-screen flex flex-col">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/personality" element={<Leaderboard />} />
+        </Routes>
+      </div>
+    </Router>
   )
 }
 

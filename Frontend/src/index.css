@@ -1,32 +1,7 @@
 @import "tailwindcss";
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
 :root {
-  --navy: #0f274d;
-  --navy-dark: #0a1c38;
-  --orange: #f0a04b;
-  --orange-dark: #e08f3a;
-  --white: #ffffff;
-  --grey-50: #f8f9fa;
-  --grey-100: #f1f3f5;
-  --grey-300: #dee2e6;
-  --grey-500: #868e96;
-  --grey-700: #495057;
-  --text-dark: #1a2b4a;
-  --shadow-sm: 0 2px 8px rgba(15, 39, 77, 0.08);
-  --shadow-md: 0 4px 20px rgba(15, 39, 77, 0.12);
-  --shadow-lg: 0 8px 32px rgba(15, 39, 77, 0.15);
-  --radius-md: 16px;
-  --radius-pill: 50px;
   --font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --transition: 0.3s ease;
 }
 
 html {
@@ -35,33 +10,8 @@ html {
 
 body {
   font-family: var(--font-family);
-  color: var(--text-dark);
-  background-color: var(--white);
-  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-img {
-  max-width: 100%;
-  height: auto;
-  display: block;
-}
-
-a {
-  text-decoration: none;
-  color: inherit;
-}
-
-button {
-  font-family: inherit;
-  cursor: pointer;
-  border: none;
-  background: none;
-}
-
-ul {
-  list-style: none;
 }
 
 .hero-gradient {
