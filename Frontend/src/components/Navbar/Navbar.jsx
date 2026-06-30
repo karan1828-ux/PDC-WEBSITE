@@ -1,9 +1,9 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Logo from './Logo'
 import './Navbar.css'
 
 const NAV_LINKS = [
-  { label: 'HOME', href: '#home', active: true },
+  { label: 'HOME', href: '#home' },
   { label: 'EVENTS', href: '#events' },
   { label: 'PERSONALITY %', href: '#personality' },
   { label: 'ACHIEVEMENTS', href: '#achievements' },
@@ -11,6 +11,13 @@ const NAV_LINKS = [
 
 function Navbar({ onLoginClick, onHomeClick }) {
   const [menuOpen, setMenuOpen] = useState(false)
+  const [currentHash, setCurrentHash] = useState(window.location.hash || '#home')
+
+  useEffect(() => {
+    const handleHashChange = () => setCurrentHash(window.location.hash || '#home');
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
 
   const toggleMenu = () => setMenuOpen((prev) => !prev)
   const closeMenu = () => setMenuOpen(false)

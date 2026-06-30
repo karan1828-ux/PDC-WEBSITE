@@ -1,3 +1,5 @@
+@import "tailwindcss";
+
 *,
 *::before,
 *::after {
@@ -60,4 +62,8 @@ button {
 
 ul {
   list-style: none;
+}
+
+.hero-gradient {
+  background: linear-gradient(90deg, #df8d43 0%, #1e293b 50%, #0f172a 100%);
 }
