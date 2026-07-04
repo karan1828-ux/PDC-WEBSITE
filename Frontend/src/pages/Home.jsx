@@ -19,23 +19,17 @@ function Home() {
         <AnnouncementBar />
       </header>
 
-<<<<<<< Updated upstream
       {showAuth ? (
         <PDCAuth onClose={() => setShowAuth(false)} />
       ) : (
         <>
           <Hero />
           <PastEvents />
+          <Team />
+          <ContactUs />
           <Footer />
         </>
       )}
-=======
-      <Hero />
-      <PastEvents />
-      <Team />
-      <ContactUs />
-      <Footer />
->>>>>>> Stashed changes
     </main>
   )
 }

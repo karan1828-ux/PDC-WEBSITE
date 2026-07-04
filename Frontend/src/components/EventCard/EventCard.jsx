@@ -1,19 +1,3 @@
-<<<<<<< Updated upstream
-import './EventCard.css'
-
-function EventCard({ image, date, title, description, featured = false }) {
-  return (
-    <article className={`event-card ${featured ? 'event-card--featured' : ''}`}>
-      <div className="event-card__image-wrapper">
-        <img src={image} alt={title} className="event-card__image" loading="lazy" />
-      </div>
-      <div className="event-card__body">
-        <time className="event-card__date" dateTime={date}>{date}</time>
-        <h3 className="event-card__title">{title}</h3>
-        <p className="event-card__description">{description}</p>
-        <button type="button" className="event-card__button">
-          VIEW DETAILS
-=======
 function EventCard({ image, featured = false }) {
   return (
     <article
@@ -52,7 +36,6 @@ function EventCard({ image, featured = false }) {
           className="self-start px-5 py-2 bg-gray-400 text-white text-[0.72rem] font-bold tracking-wider rounded-full cursor-not-allowed"
         >
           COMING SOON
->>>>>>> Stashed changes
         </button>
       </div>
     </article>
