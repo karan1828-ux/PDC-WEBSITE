@@ -6,7 +6,7 @@ function Hero() {
   return (
     <section 
       id="home" 
-      className="relative flex items-center justify-center overflow-hidden bg-gradient-to-r from-[#0f274d] via-[#1a3a6e] to-[#c8873f] hover:to-[#f0a04b]"
+      className="relative flex items-center justify-center overflow-hidden bg-gradient-to-r from-[#0f274d] via-[#1a3a6e] to-[#c8873f]"
       style={{ minHeight: 'calc(100vh - 104px)' }}
       aria-labelledby="hero-heading"
     >
