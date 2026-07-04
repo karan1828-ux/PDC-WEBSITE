@@ -1,6 +1,8 @@
 import Navbar from '../components/Navbar/Navbar'
 import AnnouncementBar from '../components/AnnouncementBar/AnnouncementBar'
 import Hero from '../components/Hero/Hero'
+import OurVision from '../components/Vision/OurVision'
+import UpcomingEvents from '../components/UpcomingEvents/UpcomingEvents'
 import PastEvents from '../components/PastEvents/PastEvents'
 import Team from '../components/Team/Team'
 import ContactUs from '../components/ContactUs/ContactUs'
@@ -15,6 +17,8 @@ function Home() {
       </header>
 
       <Hero />
+      <OurVision />
+      <UpcomingEvents />
       <PastEvents />
       <Team />
       <ContactUs />
