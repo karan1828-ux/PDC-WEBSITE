@@ -2,17 +2,75 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 
 function ContactUs() {
+  const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [message, setMessage] = useState('')
-  const [status, setStatus] = useState('idle') // idle | submitted
+  const [status, setStatus] = useState('idle') // idle | submitting | submitted | error
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    if (!email) return
-    // Hook this up to your backend / email service of choice.
-    setStatus('submitted')
-    setEmail('')
-    setMessage('')
+    if (!name || !email) return
+    
+    setStatus('submitting')
+    
+    try {
+      const response = await fetch('https://api.resend.com/emails', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${import.meta.env.VITE_RESEND_API_KEY}`
+        },
+        body: JSON.stringify({
+          from: 'Acme <onboarding@resend.dev>',
+          to: ['delivered@resend.dev'], // replace with your verified email
+          subject: `New Contact Query from ${name}`,
+          html: `
+            <!DOCTYPE html>
+            <html>
+              <head>
+                <meta charset="utf-8">
+                <title>New Contact Request</title>
+              </head>
+              <body style="font-family: Arial, sans-serif; background-color: #f4f4f5; margin: 0; padding: 20px;">
+                <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+                  <div style="background-color: #0f274d; padding: 20px; text-align: center;">
+                    <h2 style="color: #ffffff; margin: 0; font-size: 24px; letter-spacing: 1px;">New Contact Request</h2>
+                  </div>
+                  <div style="padding: 30px;">
+                    <p style="margin: 0 0 15px; font-size: 16px; color: #334155;">You have received a new message from your website's contact form.</p>
+                    
+                    <div style="background-color: #f8fafc; border-left: 4px solid #f0a04b; padding: 15px; margin-bottom: 20px; border-radius: 0 4px 4px 0;">
+                      <p style="margin: 0 0 10px; font-size: 14px;"><strong style="color: #0f274d;">Name:</strong> <span style="color: #475569;">${name}</span></p>
+                      <p style="margin: 0; font-size: 14px;"><strong style="color: #0f274d;">Email:</strong> <a href="mailto:${email}" style="color: #f0a04b; text-decoration: none;">${email}</a></p>
+                    </div>
+
+                    <h3 style="color: #0f274d; font-size: 16px; margin: 0 0 10px; border-bottom: 1px solid #e2e8f0; padding-bottom: 5px;">Message Details</h3>
+                    <p style="color: #334155; font-size: 15px; line-height: 1.6; margin: 0; white-space: pre-wrap;">${message}</p>
+                  </div>
+                  <div style="background-color: #f1f5f9; padding: 15px; text-align: center; border-top: 1px solid #e2e8f0;">
+                    <p style="margin: 0; font-size: 12px; color: #64748b;">This email was generated from your website's contact form.</p>
+                  </div>
+                </div>
+              </body>
+            </html>
+          `
+        })
+      });
+
+      if (response.ok) {
+        setStatus('submitted')
+        setName('')
+        setEmail('')
+        setMessage('')
+      } else {
+        const errorData = await response.text();
+        console.error('Resend API error:', errorData);
+        setStatus('error')
+      }
+    } catch (error) {
+      console.error('Network error:', error);
+      setStatus('error')
+    }
   }
 
   return (
@@ -53,6 +111,21 @@ function ContactUs() {
           transition={{ type: 'spring', stiffness: 200, damping: 20 }}
         >
           <div className="flex flex-col gap-1.5 text-left">
+            <label htmlFor="contact-name" className="text-[0.75rem] font-bold tracking-wider text-[#0f274d]">
+              YOUR NAME
+            </label>
+            <input
+              id="contact-name"
+              type="text"
+              required
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="John Doe"
+              className="w-full px-4 py-3 rounded-lg border border-[#e2e8f0] bg-white text-[0.9rem] text-[#1e293b] outline-none transition-all duration-200 focus:border-[#f0a04b] focus:shadow-[0_0_0_3px_rgba(240,160,75,0.15)]"
+            />
+          </div>
+
+          <div className="flex flex-col gap-1.5 text-left">
             <label htmlFor="contact-email" className="text-[0.75rem] font-bold tracking-wider text-[#0f274d]">
               YOUR EMAIL
             </label>
@@ -83,9 +156,10 @@ function ContactUs() {
 
           <button
             type="submit"
-            className="self-center mt-2 px-8 py-3 bg-[#f0a04b] text-white text-[0.75rem] font-bold tracking-widest rounded-full transition-all duration-300 hover:bg-[#e08f3a] hover:-translate-y-1 hover:shadow-[0_10px_25px_rgba(240,160,75,0.4)]"
+            disabled={status === 'submitting'}
+            className="self-center mt-2 px-8 py-3 bg-[#f0a04b] text-white text-[0.75rem] font-bold tracking-widest rounded-full transition-all duration-300 hover:bg-[#e08f3a] hover:-translate-y-1 hover:shadow-[0_10px_25px_rgba(240,160,75,0.4)] disabled:opacity-70 disabled:hover:translate-y-0"
           >
-            SUBMIT
+            {status === 'submitting' ? 'SUBMITTING...' : 'SUBMIT'}
           </button>
 
           {status === 'submitted' && (
@@ -96,6 +170,17 @@ function ContactUs() {
               role="status"
             >
               Thanks — we've received your query and will get back to you soon.
+            </motion.p>
+          )}
+
+          {status === 'error' && (
+            <motion.p
+              initial={{ opacity: 0, y: 6 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="text-center text-[0.8rem] font-semibold text-red-600"
+              role="status"
+            >
+              Oops! Something went wrong. Please try again later.
             </motion.p>
           )}
         </motion.form>
