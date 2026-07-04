@@ -1,6 +1,6 @@
 function EventCard({ image, date, title, description, featured = false }) {
   return (
-    <article className={`flex flex-col bg-white rounded-2xl shadow-[0_4px_20px_rgba(15,39,77,0.12)] overflow-hidden transition-all duration-300 hover:-translate-y-2 hover:scale-[1.02] hover:shadow-[0_8px_32px_rgba(15,39,77,0.15)] group relative ${featured ? 'after:content-[""] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[60%] after:bg-gradient-to-t after:from-[rgba(240,160,75,0.12)] after:to-transparent after:pointer-events-none' : ''}`}>
+    <article className={`flex flex-col bg-white rounded-2xl shadow-[0_4px_20px_rgba(15,39,77,0.12)] overflow-hidden transition-all duration-300 hover:-translate-y-2 hover:scale-[1.02] hover:shadow-[0_8px_32px_rgba(240,160,75,0.3)] group relative ${featured ? 'after:content-[""] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[60%] after:bg-gradient-to-t after:from-[rgba(240,160,75,0.12)] after:to-transparent after:pointer-events-none after:opacity-0 group-hover:after:opacity-100 after:transition-opacity after:duration-300' : ''}`}>
       <div className="relative w-full h-[180px] md:h-[200px] overflow-hidden">
         <img 
           src={image} 
