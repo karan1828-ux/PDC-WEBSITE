@@ -2,7 +2,6 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Teams from "./pages/Teams";
 import Home from './pages/Home'
 import Leaderboard from './pages/Leaderboard'
-import './App.css'
 
 function App() {
   return (

@@ -1,5 +1,3 @@
-import './AnnouncementBar.css'
-
 const ANNOUNCEMENTS = [
   "COMING SOON!",
   "COMING SOON!",
@@ -9,24 +7,33 @@ const ANNOUNCEMENTS = [
 
 function AnnouncementBar() {
   const marqueeContent = ANNOUNCEMENTS.map((item, index) => (
-    <span key={index} className="announcement-bar__item">
-      <span className="announcement-bar__separator" aria-hidden="true">|</span>
+    <span key={index} className="inline-flex items-center pr-1">
+      <span className="text-white/40 mx-2 sm:mx-4 font-light" aria-hidden="true">|</span>
       {item}
     </span>
   ))
 
   return (
-    <aside className="announcement-bar" aria-label="Upcoming events announcements">
-      <div className="announcement-bar__track">
-        <div className="announcement-bar__content">
-          <span className="announcement-bar__label">UPCOMING EVENTS</span>
+    <aside className="bg-[#0f274d] overflow-hidden w-full mt-16" aria-label="Upcoming events announcements">
+      <div className="flex w-max animate-[marquee-scroll_30s_linear_infinite] md:animate-[marquee-scroll_20s_linear_infinite] hover:animate-paused">
+        <div className="flex items-center whitespace-nowrap py-2.5 text-[0.65rem] md:text-[0.72rem] lg:text-sm text-white">
+          <span className="text-[#f0a04b] font-bold tracking-wider px-3 sm:px-4 lg:pl-8 lg:pr-6 shrink-0">UPCOMING EVENTS</span>
           {marqueeContent}
         </div>
-        <div className="announcement-bar__content" aria-hidden="true">
-          <span className="announcement-bar__label">UPCOMING EVENTS</span>
+        <div className="flex items-center whitespace-nowrap py-2.5 text-[0.65rem] md:text-[0.72rem] lg:text-sm text-white" aria-hidden="true">
+          <span className="text-[#f0a04b] font-bold tracking-wider px-3 sm:px-4 lg:pl-8 lg:pr-6 shrink-0">UPCOMING EVENTS</span>
           {marqueeContent}
         </div>
       </div>
+      <style>{`
+        @keyframes marquee-scroll {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+        .hover\\:animate-paused:hover {
+          animation-play-state: paused;
+        }
+      `}</style>
     </aside>
   )
 }
