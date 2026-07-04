@@ -11,7 +11,7 @@ const NAV_LINKS = [
   { label: 'TEAMS', href: '/teams' },
 ]
 
-function Navbar() {
+function Navbar({ onLoginClick, onHomeClick }) {
   const [menuOpen, setMenuOpen] = useState(false)
 
   const toggleMenu = () => setMenuOpen((prev) => !prev)
@@ -54,41 +54,14 @@ function Navbar() {
             ))}
           </div>
 
-        <div className="navbar__actions">
-          <button type="button" className="navbar__login" onClick={onLoginClick}>
-            <svg
-              className="navbar__login-icon"
-              width="14"
-              height="14"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              aria-hidden="true"
-            >
-              <path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4" />
-            </svg>
-            LOGIN
-          </button>
-
-          <div className="hidden sm:flex items-center space-x-4">
-            <button type="button" className="text-gray-500 hover:text-gray-700 focus:outline-none" aria-label="Search">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                <circle cx="11" cy="11" r="8" />
-                <line x1="21" y1="21" x2="16.65" y2="16.65" />
-              </svg>
-            </button>
+          <div className="flex items-center">
+            <img
+              src={ditLogo}
+              alt="DIT Logo"
+              className="h-10 w-auto object-contain"
+            />
           </div>
-
-          <img
-            src={ditLogo}
-            alt="DIT Logo"
-            style={{ height: '40px', width: 'auto', objectFit: 'contain', marginLeft: '16px' }}
-          />
         </div>
-      </div>
     </div>
 
       {/* Mobile menu */}

@@ -14,17 +14,11 @@ function Home() {
         <AnnouncementBar />
       </header>
 
-      {showAuth ? (
-        <PDCAuth onClose={() => setShowAuth(false)} />
-      ) : (
-        <>
-          <Hero />
-          <PastEvents />
-          <Team />
-          <ContactUs />
-          <Footer />
-        </>
-      )}
+      <Hero />
+      <PastEvents />
+      <Team />
+      <ContactUs />
+      <Footer />
     </main>
   )
 }
