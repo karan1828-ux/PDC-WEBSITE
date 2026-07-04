@@ -14,47 +14,12 @@ function ContactUs() {
     setStatus('submitting')
     
     try {
-      const response = await fetch('https://api.resend.com/emails', {
+      const response = await fetch('/api/send', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${import.meta.env.VITE_RESEND_API_KEY}`
+          'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
-          from: 'Acme <onboarding@resend.dev>',
-          to: ['delivered@resend.dev'], // replace with your verified email
-          subject: `New Contact Query from ${name}`,
-          html: `
-            <!DOCTYPE html>
-            <html>
-              <head>
-                <meta charset="utf-8">
-                <title>New Contact Request</title>
-              </head>
-              <body style="font-family: Arial, sans-serif; background-color: #f4f4f5; margin: 0; padding: 20px;">
-                <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
-                  <div style="background-color: #0f274d; padding: 20px; text-align: center;">
-                    <h2 style="color: #ffffff; margin: 0; font-size: 24px; letter-spacing: 1px;">New Contact Request</h2>
-                  </div>
-                  <div style="padding: 30px;">
-                    <p style="margin: 0 0 15px; font-size: 16px; color: #334155;">You have received a new message from your website's contact form.</p>
-                    
-                    <div style="background-color: #f8fafc; border-left: 4px solid #f0a04b; padding: 15px; margin-bottom: 20px; border-radius: 0 4px 4px 0;">
-                      <p style="margin: 0 0 10px; font-size: 14px;"><strong style="color: #0f274d;">Name:</strong> <span style="color: #475569;">${name}</span></p>
-                      <p style="margin: 0; font-size: 14px;"><strong style="color: #0f274d;">Email:</strong> <a href="mailto:${email}" style="color: #f0a04b; text-decoration: none;">${email}</a></p>
-                    </div>
-
-                    <h3 style="color: #0f274d; font-size: 16px; margin: 0 0 10px; border-bottom: 1px solid #e2e8f0; padding-bottom: 5px;">Message Details</h3>
-                    <p style="color: #334155; font-size: 15px; line-height: 1.6; margin: 0; white-space: pre-wrap;">${message}</p>
-                  </div>
-                  <div style="background-color: #f1f5f9; padding: 15px; text-align: center; border-top: 1px solid #e2e8f0;">
-                    <p style="margin: 0; font-size: 12px; color: #64748b;">This email was generated from your website's contact form.</p>
-                  </div>
-                </div>
-              </body>
-            </html>
-          `
-        })
+        body: JSON.stringify({ name, email, message })
       });
 
       if (response.ok) {
