@@ -1,11 +1,10 @@
 import './AnnouncementBar.css'
 
 const ANNOUNCEMENTS = [
-  'Next Workshop: Effective Communication (Sat 10th Oct)',
-  'Seminar: Building Confidence (Wed 14th Oct)',
-  'Annual Showcase (Nov 15th–17th)',
-  'Guest Speaker Series: Leadership Skills (Dec 5th)',
-  'Public Speaking Bootcamp (Jan 12th)',
+  "COMING SOON!",
+  "COMING SOON!",
+  "COMING SOON!",
+  "COMING SOON!"
 ]
 
 function AnnouncementBar() {
