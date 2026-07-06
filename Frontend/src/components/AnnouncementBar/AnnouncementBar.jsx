@@ -1,15 +1,12 @@
-const ANNOUNCEMENTS = [
-  "COMING SOON!",
-  "COMING SOON!",
-  "COMING SOON!",
-  "COMING SOON!"
-]
+import { UPCOMING_EVENTS } from '../UpcomingEvents/UpcomingEvents';
 
 function AnnouncementBar() {
-  const marqueeContent = ANNOUNCEMENTS.map((item, index) => (
-    <span key={index} className="inline-flex items-center pr-1">
+  const marqueeContent = UPCOMING_EVENTS.map((event, index) => (
+    <span key={event.id || index} className="inline-flex items-center pr-1">
       <span className="text-white/40 mx-2 sm:mx-4 font-light" aria-hidden="true">|</span>
-      {item}
+      <a href="#upcoming-events" className="hover:text-[#f0a04b] transition-colors cursor-pointer">
+        {event.title}
+      </a>
     </span>
   ))
 

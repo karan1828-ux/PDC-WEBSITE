@@ -1,6 +1,6 @@
 import EventCard from '../EventCard/EventCard'
 
-const UPCOMING_EVENTS = [
+export const UPCOMING_EVENTS = [
   {
     id: 101,
     image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&h=400&fit=crop',
@@ -30,7 +30,7 @@ const UPCOMING_EVENTS = [
 
 function UpcomingEvents() {
   return (
-    <section id="upcoming-events" className="bg-white py-12 sm:py-16 px-5 sm:px-8" aria-labelledby="upcoming-events-heading">
+    <section id="upcoming-events" className="scroll-mt-20 bg-white py-12 sm:py-16 px-5 sm:px-8" aria-labelledby="upcoming-events-heading">
       <div className="max-w-[1200px] mx-auto">
         <header className="flex items-center justify-center gap-4 mb-8 sm:mb-12">
           <span className="hidden sm:flex items-center text-[#f0a04b] opacity-70 before:content-[''] before:inline-block before:w-2 before:h-2 before:bg-[#f0a04b] before:rounded-full before:mx-2" aria-hidden="true">
