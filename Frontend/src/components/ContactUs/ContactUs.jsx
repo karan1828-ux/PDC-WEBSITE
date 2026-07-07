@@ -2,17 +2,40 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 
 function ContactUs() {
+  const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [message, setMessage] = useState('')
-  const [status, setStatus] = useState('idle') // idle | submitted
+  const [status, setStatus] = useState('idle') // idle | submitting | submitted | error
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    if (!email) return
-    // Hook this up to your backend / email service of choice.
-    setStatus('submitted')
-    setEmail('')
-    setMessage('')
+    if (!name || !email) return
+    
+    setStatus('submitting')
+    
+    try {
+      const response = await fetch('/api/send', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ name, email, message })
+      });
+
+      if (response.ok) {
+        setStatus('submitted')
+        setName('')
+        setEmail('')
+        setMessage('')
+      } else {
+        const errorData = await response.text();
+        console.error('Resend API error:', errorData);
+        setStatus('error')
+      }
+    } catch (error) {
+      console.error('Network error:', error);
+      setStatus('error')
+    }
   }
 
   return (
@@ -53,6 +76,21 @@ function ContactUs() {
           transition={{ type: 'spring', stiffness: 200, damping: 20 }}
         >
           <div className="flex flex-col gap-1.5 text-left">
+            <label htmlFor="contact-name" className="text-[0.75rem] font-bold tracking-wider text-[#0f274d]">
+              YOUR NAME
+            </label>
+            <input
+              id="contact-name"
+              type="text"
+              required
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="John Doe"
+              className="w-full px-4 py-3 rounded-lg border border-[#e2e8f0] bg-white text-[0.9rem] text-[#1e293b] outline-none transition-all duration-200 focus:border-[#f0a04b] focus:shadow-[0_0_0_3px_rgba(240,160,75,0.15)]"
+            />
+          </div>
+
+          <div className="flex flex-col gap-1.5 text-left">
             <label htmlFor="contact-email" className="text-[0.75rem] font-bold tracking-wider text-[#0f274d]">
               YOUR EMAIL
             </label>
@@ -83,9 +121,10 @@ function ContactUs() {
 
           <button
             type="submit"
-            className="self-center mt-2 px-8 py-3 bg-[#f0a04b] text-white text-[0.75rem] font-bold tracking-widest rounded-full transition-all duration-300 hover:bg-[#e08f3a] hover:-translate-y-1 hover:shadow-[0_10px_25px_rgba(240,160,75,0.4)]"
+            disabled={status === 'submitting'}
+            className="self-center mt-2 px-8 py-3 bg-[#f0a04b] text-white text-[0.75rem] font-bold tracking-widest rounded-full transition-all duration-300 hover:bg-[#e08f3a] hover:-translate-y-1 hover:shadow-[0_10px_25px_rgba(240,160,75,0.4)] disabled:opacity-70 disabled:hover:translate-y-0"
           >
-            SUBMIT
+            {status === 'submitting' ? 'SUBMITTING...' : 'SUBMIT'}
           </button>
 
           {status === 'submitted' && (
@@ -96,6 +135,17 @@ function ContactUs() {
               role="status"
             >
               Thanks — we've received your query and will get back to you soon.
+            </motion.p>
+          )}
+
+          {status === 'error' && (
+            <motion.p
+              initial={{ opacity: 0, y: 6 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="text-center text-[0.8rem] font-semibold text-red-600"
+              role="status"
+            >
+              Oops! Something went wrong. Please try again later.
             </motion.p>
           )}
         </motion.form>
