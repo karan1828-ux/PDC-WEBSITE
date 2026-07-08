@@ -1,22 +1,67 @@
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
+import { useState, useEffect } from 'react'
 
-const BACKGROUND_WORDS = ['EMPOWER', 'GROW', 'INSPIRE']
+const BACKGROUND_WORDS = ['EMPOWER', 'GROW', 'INSPIRE', 'LEAD', 'THRIVE', 'SHINE']
+
+const HERO_PHRASES = [
+  'UNLEASH YOUR POTENTIAL',
+  'BUILD YOUR CONFIDENCE',
+  'LEAD WITH PURPOSE',
+  'INSPIRE THOSE AROUND YOU',
+  'MASTER YOUR VOICE',
+  'GROW BEYOND LIMITS',
+  'OWN YOUR FUTURE',
+]
+
+const FLIP_DURATION = 3000 // ms between flips
 
 function Hero() {
+  const [currentIndex, setCurrentIndex] = useState(0)
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % HERO_PHRASES.length)
+    }, FLIP_DURATION)
+    return () => clearInterval(interval)
+  }, [])
+
   return (
     <section 
       id="home" 
-      className="relative flex items-center justify-center overflow-hidden bg-gradient-to-r from-[#0f274d] via-[#1a3a6e] to-[#c8873f]"
-      style={{ minHeight: 'calc(100vh - 104px)' }}
+      className="relative flex items-center justify-center overflow-hidden"
+      style={{
+        minHeight: 'calc(100vh - 104px)',
+        background: 'linear-gradient(135deg, #0b1e3d 0%, #0f274d 30%, #1a3a6e 60%, #c8873f 100%)',
+      }}
       aria-labelledby="hero-heading"
     >
-      {/* Ambient glow behind the text */}
+      {/* Deep radial glow layers */}
       <div
-        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full pointer-events-none"
-        style={{
-          background: 'radial-gradient(circle, rgba(240,160,75,0.12) 0%, transparent 70%)',
-        }}
+        className="absolute inset-0 pointer-events-none"
         aria-hidden="true"
+        style={{
+          background: 'radial-gradient(ellipse 70% 60% at 50% 50%, rgba(240,160,75,0.13) 0%, transparent 70%)',
+        }}
+      />
+      <div
+        className="absolute pointer-events-none"
+        aria-hidden="true"
+        style={{
+          top: '-10%', right: '-5%',
+          width: '500px', height: '500px',
+          background: 'radial-gradient(circle, rgba(200,135,63,0.18) 0%, transparent 65%)',
+          borderRadius: '50%',
+        }}
+      />
+      <div
+        className="absolute pointer-events-none"
+        aria-hidden="true"
+        style={{
+          bottom: '-10%', left: '-5%',
+          width: '400px', height: '400px',
+          background: 'radial-gradient(circle, rgba(15,39,77,0.4) 0%, transparent 65%)',
+          borderRadius: '50%',
+        }}
       />
 
       {/* Left background words */}
@@ -29,7 +74,7 @@ function Hero() {
         aria-hidden="true"
       >
         {BACKGROUND_WORDS.map((word) => (
-          <span key={`left-${word}`} className="text-[clamp(2.5rem,10vw,5rem)] md:text-[clamp(3.5rem,8vw,7rem)] font-extrabold tracking-widest text-white/[0.04] leading-tight whitespace-nowrap">
+          <span key={`left-${word}`} className="text-[clamp(2.5rem,10vw,5rem)] md:text-[clamp(3.5rem,8vw,7rem)] font-extrabold tracking-widest text-white/[0.05] leading-tight whitespace-nowrap">
             {word}
           </span>
         ))}
@@ -45,48 +90,63 @@ function Hero() {
         aria-hidden="true"
       >
         {BACKGROUND_WORDS.map((word) => (
-          <span key={`right-${word}`} className="text-[clamp(2.5rem,10vw,5rem)] md:text-[clamp(3.5rem,8vw,7rem)] font-extrabold tracking-widest text-white/[0.04] leading-tight whitespace-nowrap">
+          <span key={`right-${word}`} className="text-[clamp(2.5rem,10vw,5rem)] md:text-[clamp(3.5rem,8vw,7rem)] font-extrabold tracking-widest text-white/[0.05] leading-tight whitespace-nowrap">
             {word}
           </span>
         ))}
       </div>
 
-      {/* Hero content with floating animation */}
-      <div className="relative z-10 text-center max-w-[800px] px-6">
-        <motion.h1
+      {/* Hero content */}
+      <div className="relative z-10 text-center max-w-[820px] px-6">
+
+        {/* Flipping headline */}
+        <div
           id="hero-heading"
-          className="text-[clamp(2.5rem,6vw,4.5rem)] font-extrabold tracking-wide text-white leading-tight mb-6"
-          initial={{ opacity: 0, rotateX: -100 }}
-          animate={{ opacity: 1, rotateX: 0 }}
-          transition={{
-            duration: 0.8,
-            ease: [0.215, 0.61, 0.355, 1], // Equivalent to GSAP power3.out
-            delay: 0.1
-          }}
-          style={{
-            fontFamily: "'Cinzel', serif",
-            transformOrigin: "50% 50% -160px",
-            transformStyle: "preserve-3d",
-            textShadow: '0 0 40px rgba(240, 160, 75, 0.3), 0 0 80px rgba(240, 160, 75, 0.15)',
-          }}
+          className="relative overflow-hidden mb-6"
+          style={{ perspective: '800px', minHeight: 'clamp(7rem, 14vw, 11rem)' }}
+          aria-live="polite"
         >
-          UNLEASH YOUR POTENTIAL
-        </motion.h1>
+          <AnimatePresence mode="wait">
+            <motion.h1
+              key={currentIndex}
+              className="text-[clamp(2.2rem,5.5vw,4rem)] font-extrabold tracking-wide text-white leading-tight"
+              initial={{ rotateX: -90, opacity: 0, y: 30 }}
+              animate={{ rotateX: 0, opacity: 1, y: 0 }}
+              exit={{ rotateX: 90, opacity: 0, y: -30 }}
+              transition={{ duration: 0.55, ease: [0.215, 0.61, 0.355, 1] }}
+              style={{
+                fontFamily: "'Cinzel', serif",
+                transformOrigin: '50% 100%',
+                transformStyle: 'preserve-3d',
+                textShadow: '0 0 40px rgba(240, 160, 75, 0.4), 0 0 80px rgba(240, 160, 75, 0.2)',
+              }}
+            >
+              {HERO_PHRASES[currentIndex]}
+            </motion.h1>
+          </AnimatePresence>
+        </div>
+
+        {/* Dot indicators */}
+        <div className="flex items-center justify-center gap-2 mb-6" aria-hidden="true">
+          {HERO_PHRASES.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setCurrentIndex(i)}
+              className={`rounded-full transition-all duration-300 ${
+                i === currentIndex
+                  ? 'w-6 h-2 bg-[#f0a04b]'
+                  : 'w-2 h-2 bg-white/30 hover:bg-white/60'
+              }`}
+            />
+          ))}
+        </div>
 
         <motion.p
           className="text-[clamp(1rem,2.5vw,1.35rem)] font-light text-white/80 tracking-wider mt-2"
-          initial={{ opacity: 0, rotateX: -100 }}
-          animate={{ opacity: 1, rotateX: 0 }}
-          transition={{
-            duration: 0.8,
-            ease: [0.215, 0.61, 0.355, 1],
-            delay: 0.35 // staggered by 0.25 from the h1
-          }}
-          style={{
-            fontFamily: "'Inter', sans-serif",
-            transformOrigin: "50% 50% -160px",
-            transformStyle: "preserve-3d",
-          }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: [0.215, 0.61, 0.355, 1], delay: 0.35 }}
+          style={{ fontFamily: "'Inter', sans-serif" }}
         >
           Transforming Individuals, Empowering Lives at PDC
         </motion.p>
