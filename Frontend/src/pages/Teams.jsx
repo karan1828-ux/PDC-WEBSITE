@@ -4,7 +4,7 @@ import Team from '../components/Team/Team'
 
 export default function Teams() {
   return (
-    <main className="flex flex-col min-h-screen">
+    <main className="flex flex-col min-h-screen bg-[#f8fafc]">
       <header className="sticky top-0 z-50 w-full">
         <Navbar />
         <AnnouncementBar empty={true} />
