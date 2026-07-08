@@ -1,9 +1,12 @@
 import EventCard from '../EventCard/EventCard'
+import confidenceWorkshopImg from '../../assets/events/confidence_workshop.png'
+import annualSummitImg from '../../assets/events/annual_summit.png'
+import leadershipSeminarImg from '../../assets/events/leadership_seminar.png'
 
 const EVENTS = [
   {
     id: 1,
-    image: 'https://images.unsplash.com/photo-1515187022015-fb1a3ce40b7e?w=600&h=400&fit=crop',
+    image: confidenceWorkshopImg,
     date: 'Sept 2023',
     title: 'BUILDING CONFIDENCE WORKSHOP',
     description:
@@ -12,7 +15,7 @@ const EVENTS = [
   },
   {
     id: 2,
-    image: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&h=400&fit=crop',
+    image: annualSummitImg,
     date: 'June 2024',
     title: 'PDC ANNUAL SUMMIT',
     description:
@@ -20,7 +23,7 @@ const EVENTS = [
   },
   {
     id: 3,
-    image: 'https://images.unsplash.com/photo-1475721027785-f74eccf83e0a?w=600&h=400&fit=crop',
+    image: leadershipSeminarImg,
     date: 'March 2024',
     title: 'LEADERSHIP SEMINAR',
     description:
