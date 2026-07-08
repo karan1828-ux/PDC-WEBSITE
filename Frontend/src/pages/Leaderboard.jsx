@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import Navbar from '../components/Navbar/Navbar'
-import Footer from '../components/Footer/Footer'
 
 const initialMembers = [
   {
@@ -57,18 +56,18 @@ function Leaderboard() {
       {/* BEGIN: FilterBar */}
       <div className="bg-[#1e293b] text-white py-2 mt-[64px]">
         <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row flex-wrap justify-center items-center gap-4 sm:gap-8 text-sm">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-3">
             <span className="text-[#cbd5e1]">Sort By:</span>
-            <div className="relative">
-              <select 
-                className="bg-transparent border-b border-[#94a3b8] outline-none pr-6 pl-1 py-1 cursor-pointer text-white appearance-none focus:border-white w-full"
-                value={sortBy}
-                onChange={(e) => setSortBy(e.target.value)}
-              >
-                <option value="highest" className="text-[#0f172a]">Highest %</option>
-                <option value="lowest" className="text-[#0f172a]">Lowest %</option>
-              </select>
-              <i className="fa-solid fa-chevron-down absolute right-0 top-2 text-[10px] pointer-events-none"></i>
+            <div 
+              className="flex items-center bg-[#0f172a] rounded-full p-1 cursor-pointer shadow-inner" 
+              onClick={() => setSortBy(sortBy === 'highest' ? 'lowest' : 'highest')}
+            >
+              <div className={`px-3 py-1 rounded-full text-xs font-semibold transition-all duration-300 ${sortBy === 'highest' ? 'bg-[#f0a04b] text-white shadow-md' : 'text-gray-400'}`}>
+                Highest %
+              </div>
+              <div className={`px-3 py-1 rounded-full text-xs font-semibold transition-all duration-300 ${sortBy === 'lowest' ? 'bg-[#f0a04b] text-white shadow-md' : 'text-gray-400'}`}>
+                Lowest %
+              </div>
             </div>
           </div>
           <div className="flex items-center gap-2">
@@ -144,8 +143,6 @@ function Leaderboard() {
         </div>
       </main>
       {/* END: LeaderboardSection */}
-
-      <Footer />
     </div>
   )
 }
