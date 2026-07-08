@@ -31,7 +31,7 @@ function OurVision() {
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
-          At the Personality Development Club (PDC), our vision is to cultivate a dynamic environment where individuals can discover, nurture, and unleash their true potential. We believe in holistic growth—fostering not just professional skills, but the confidence, emotional intelligence, and leadership qualities necessary to thrive in an ever-evolving world.
+          To empower students with confidence, effective communication, leadership qualities, and professional etiquette through experiential learning. The Personality Development Club strives to create an inclusive environment where every student discovers their potential, overcomes stage fear, develops strong interpersonal skills, and becomes prepared for both personal and professional success.
         </motion.p>
       </div>
     </section>
