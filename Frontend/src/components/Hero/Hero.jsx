@@ -35,39 +35,14 @@ function Hero() {
       }}
       aria-labelledby="hero-heading"
     >
-      {/* Deep radial glow layers */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        aria-hidden="true"
-        style={{
-          background: 'radial-gradient(ellipse 70% 60% at 50% 50%, rgba(240,160,75,0.13) 0%, transparent 70%)',
-        }}
-      />
-      <div
-        className="absolute pointer-events-none"
-        aria-hidden="true"
-        style={{
-          top: '-10%', right: '-5%',
-          width: '500px', height: '500px',
-          background: 'radial-gradient(circle, rgba(200,135,63,0.18) 0%, transparent 65%)',
-          borderRadius: '50%',
-        }}
-      />
-      <div
-        className="absolute pointer-events-none"
-        aria-hidden="true"
-        style={{
-          bottom: '-10%', left: '-5%',
-          width: '400px', height: '400px',
-          background: 'radial-gradient(circle, rgba(15,39,77,0.4) 0%, transparent 65%)',
-          borderRadius: '50%',
-        }}
-      />
+
 
       {/* Left background words */}
       <div 
-        className="absolute top-1/2 -translate-y-1/2 flex flex-col gap-4 z-0 pointer-events-none select-none left-0 pl-2 md:pl-8 opacity-60 sm:opacity-100 w-[45%] md:w-[40%] overflow-hidden" 
+        className="absolute flex flex-col gap-4 z-0 pointer-events-none select-none left-0 pl-2 md:pl-8 opacity-60 sm:opacity-100 w-[45%] md:w-[40%] overflow-hidden" 
         style={{
+          top: '50%',
+          transform: 'translateY(-40%)',
           maskImage: 'linear-gradient(to right, black 60%, transparent 100%)',
           WebkitMaskImage: 'linear-gradient(to right, black 60%, transparent 100%)'
         }}
@@ -82,8 +57,10 @@ function Hero() {
 
       {/* Right background words */}
       <div 
-        className="absolute top-1/2 -translate-y-1/2 flex flex-col gap-4 z-0 pointer-events-none select-none right-0 pr-2 md:pr-8 text-right opacity-60 sm:opacity-100 w-[45%] md:w-[40%] overflow-hidden" 
+        className="absolute flex flex-col gap-4 z-0 pointer-events-none select-none right-0 pr-2 md:pr-8 text-right opacity-60 sm:opacity-100 w-[45%] md:w-[40%] overflow-hidden" 
         style={{
+          top: '50%',
+          transform: 'translateY(-40%)',
           maskImage: 'linear-gradient(to left, black 60%, transparent 100%)',
           WebkitMaskImage: 'linear-gradient(to left, black 60%, transparent 100%)'
         }}
@@ -118,7 +95,6 @@ function Hero() {
                 fontFamily: "'Cinzel', serif",
                 transformOrigin: '50% 100%',
                 transformStyle: 'preserve-3d',
-                textShadow: '0 0 40px rgba(240, 160, 75, 0.4), 0 0 80px rgba(240, 160, 75, 0.2)',
               }}
             >
               {HERO_PHRASES[currentIndex]}
