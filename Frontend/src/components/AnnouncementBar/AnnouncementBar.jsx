@@ -1,6 +1,16 @@
 import { UPCOMING_EVENTS } from '../UpcomingEvents/UpcomingEvents';
 
-function AnnouncementBar() {
+function AnnouncementBar({ empty = false }) {
+  if (empty) {
+    return (
+      <aside className="bg-[#0f274d] overflow-hidden w-full mt-16" aria-hidden="true">
+        <div className="flex items-center py-2.5 text-[0.65rem] md:text-[0.72rem] lg:text-sm">
+          &nbsp;
+        </div>
+      </aside>
+    );
+  }
+
   const marqueeContent = UPCOMING_EVENTS.map((event, index) => (
     <span key={event.id || index} className="inline-flex items-center pr-1">
       <span className="text-white/40 mx-2 sm:mx-4 font-light" aria-hidden="true">|</span>

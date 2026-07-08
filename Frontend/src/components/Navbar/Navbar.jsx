@@ -7,7 +7,7 @@ const NAV_LINKS = [
   { label: 'HOME', href: '/' },
   { label: 'EVENTS', href: '/#upcoming-events' },
   { label: 'PERSONALITY %', href: '/personality' },
-  { label: 'ACHIEVEMENTS', href: '/#achievements' },
+  { label: 'ACHIEVEMENTS', href: '/achievements' },
   { label: 'TEAMS', href: '/teams' },
 ]
 
@@ -62,7 +62,7 @@ function Navbar({ onLoginClick, onHomeClick }) {
             />
           </div>
         </div>
-    </div>
+      </div>
 
       {/* Mobile menu */}
       {menuOpen && (
