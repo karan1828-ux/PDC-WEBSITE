@@ -4,7 +4,6 @@ import Hero from '../components/Hero/Hero'
 import OurVision from '../components/Vision/OurVision'
 import UpcomingEvents from '../components/UpcomingEvents/UpcomingEvents'
 import PastEvents from '../components/PastEvents/PastEvents'
-import Team from '../components/Team/Team'
 import ContactUs from '../components/ContactUs/ContactUs'
 import Footer from '../components/Footer/Footer'
 
@@ -20,7 +19,6 @@ function Home() {
       <OurVision />
       <UpcomingEvents />
       <PastEvents />
-      <Team />
       <ContactUs />
       <Footer />
     </main>
