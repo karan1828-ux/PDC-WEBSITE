@@ -1,39 +1,36 @@
 import EventCard from '../EventCard/EventCard'
-import confidenceWorkshopImg from '../../assets/events/confidence_workshop.png'
-import annualSummitImg from '../../assets/events/annual_summit.png'
-import leadershipSeminarImg from '../../assets/events/leadership_seminar.png'
 
-const EVENTS = [
+export const UPCOMING_EVENTS = [
   {
-    id: 1,
-    image: confidenceWorkshopImg,
-    date: 'Sept 2023',
-    title: 'BUILDING CONFIDENCE WORKSHOP',
+    id: 101,
+    image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&h=400&fit=crop',
+    date: 'August 2024',
+    title: 'COMMUNICATION MASTERY',
     description:
-      'A hands-on session focused on boosting self-esteem and public speaking skills through interactive activities.',
+      'An intensive 2-day workshop designed to elevate your public speaking, negotiation, and interpersonal communication skills.',
     featured: true,
   },
   {
-    id: 2,
-    image: annualSummitImg,
-    date: 'June 2024',
-    title: 'PDC ANNUAL SUMMIT',
+    id: 102,
+    image: 'https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=600&h=400&fit=crop',
+    date: 'October 2024',
+    title: 'LEADERSHIP BOOTCAMP',
     description:
-      'Our flagship event bringing together members, alumni, and guest speakers for a day of inspiration and networking.',
+      'Step into leadership with confidence. Learn practical management strategies and team-building techniques from industry experts.',
   },
   {
-    id: 3,
-    image: leadershipSeminarImg,
-    date: 'March 2024',
-    title: 'LEADERSHIP SEMINAR',
+    id: 103,
+    image: 'https://images.unsplash.com/photo-1531482615713-2afd69097998?w=600&h=400&fit=crop',
+    date: 'December 2024',
+    title: 'WINTER NETWORKING MIXER',
     description:
-      'Exploring core leadership principles and practical strategies for leading teams and initiatives effectively.',
+      'Connect with alumni and professionals. Build your network and discover new career opportunities in a relaxed setting.',
   },
 ]
 
-function PastEvents() {
+function UpcomingEvents() {
   return (
-    <section id="events" className="bg-white py-12 sm:py-16 px-5 sm:px-8" aria-labelledby="past-events-heading">
+    <section id="upcoming-events" className="scroll-mt-20 bg-white py-12 sm:py-16 px-5 sm:px-8" aria-labelledby="upcoming-events-heading">
       <div className="max-w-[1200px] mx-auto">
         <header className="flex items-center justify-center gap-4 mb-8 sm:mb-12">
           <span className="hidden sm:flex items-center text-[#f0a04b] opacity-70 before:content-[''] before:inline-block before:w-2 before:h-2 before:bg-[#f0a04b] before:rounded-full before:mx-2" aria-hidden="true">
@@ -42,8 +39,8 @@ function PastEvents() {
               <path d="M12 6v6l4 2" />
             </svg>
           </span>
-          <h2 id="past-events-heading" className="text-[clamp(1.5rem,3vw,2rem)] font-extrabold tracking-widest text-[#0f274d] text-center">
-            PAST EVENTS
+          <h2 id="upcoming-events-heading" className="text-[clamp(1.5rem,3vw,2rem)] font-extrabold tracking-widest text-[#0f274d] text-center">
+            UPCOMING EVENTS
           </h2>
           <span className="hidden sm:flex items-center text-[#f0a04b] opacity-70 after:content-[''] after:inline-block after:w-2 after:h-2 after:bg-[#f0a04b] after:rounded-full after:mx-2" aria-hidden="true">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -56,7 +53,7 @@ function PastEvents() {
         </header>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 [&>*:last-child]:md:col-span-2 [&>*:last-child]:md:max-w-[480px] [&>*:last-child]:md:justify-self-center [&>*:last-child]:md:w-full [&>*:last-child]:lg:col-span-1 [&>*:last-child]:lg:max-w-none">
-          {EVENTS.map((event) => (
+          {UPCOMING_EVENTS.map((event) => (
             <EventCard
               key={event.id}
               image={event.image}
@@ -72,4 +69,4 @@ function PastEvents() {
   )
 }
 
-export default PastEvents
+export default UpcomingEvents

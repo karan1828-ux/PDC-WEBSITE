@@ -1,16 +1,22 @@
-const ANNOUNCEMENTS = [
-  'Next Workshop: Effective Communication (Sat 10th Oct)',
-  'Seminar: Building Confidence (Wed 14th Oct)',
-  'Annual Showcase (Nov 15th–17th)',
-  'Guest Speaker Series: Leadership Skills (Dec 5th)',
-  'Public Speaking Bootcamp (Jan 12th)',
-]
+import { UPCOMING_EVENTS } from '../UpcomingEvents/UpcomingEvents';
 
-function AnnouncementBar() {
-  const marqueeContent = ANNOUNCEMENTS.map((item, index) => (
-    <span key={index} className="inline-flex items-center pr-1">
+function AnnouncementBar({ empty = false }) {
+  if (empty) {
+    return (
+      <aside className="bg-[#0f274d] overflow-hidden w-full mt-16" aria-hidden="true">
+        <div className="flex items-center py-2.5 text-[0.65rem] md:text-[0.72rem] lg:text-sm">
+          &nbsp;
+        </div>
+      </aside>
+    );
+  }
+
+  const marqueeContent = UPCOMING_EVENTS.map((event, index) => (
+    <span key={event.id || index} className="inline-flex items-center pr-1">
       <span className="text-white/40 mx-2 sm:mx-4 font-light" aria-hidden="true">|</span>
-      {item}
+      <a href="#upcoming-events" className="hover:text-[#f0a04b] transition-colors cursor-pointer">
+        {event.title}
+      </a>
     </span>
   ))
 

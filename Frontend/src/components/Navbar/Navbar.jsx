@@ -1,15 +1,17 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import ditLogo from "../../assets/dit-logo.png";
 import { Link } from 'react-router-dom'
 import Logo from './Logo'
 
 const NAV_LINKS = [
   { label: 'HOME', href: '/' },
-  { label: 'EVENTS', href: '/#events' },
+  { label: 'EVENTS', href: '/#upcoming-events' },
   { label: 'PERSONALITY %', href: '/personality' },
-  { label: 'ACHIEVEMENTS', href: '/#achievements' },
+  { label: 'ACHIEVEMENTS', href: '/achievements' },
+  { label: 'TEAMS', href: '/teams' },
 ]
 
-function Navbar() {
+function Navbar({ onLoginClick, onHomeClick }) {
   const [menuOpen, setMenuOpen] = useState(false)
 
   const toggleMenu = () => setMenuOpen((prev) => !prev)
@@ -52,13 +54,12 @@ function Navbar() {
             ))}
           </div>
 
-          <div className="hidden sm:flex items-center space-x-4">
-            <button type="button" className="text-gray-500 hover:text-gray-700 focus:outline-none" aria-label="Search">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                <circle cx="11" cy="11" r="8" />
-                <line x1="21" y1="21" x2="16.65" y2="16.65" />
-              </svg>
-            </button>
+          <div className="flex items-center">
+            <img
+              src={ditLogo}
+              alt="DIT Logo"
+              className="h-14 w-auto object-contain"
+            />
           </div>
         </div>
       </div>
