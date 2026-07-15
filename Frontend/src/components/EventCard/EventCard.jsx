@@ -29,7 +29,7 @@ function EventCard({ image, date, title, description, time = "10:00 AM - 4:00 PM
         <div className="flex flex-col flex-1 p-6 relative z-10">
           <time className="text-[0.8rem] font-medium text-gray-500 mb-2" dateTime={date}>{date}</time>
           <h3 className="text-[0.95rem] font-bold tracking-wide text-[#0f274d] leading-snug mb-3">{title}</h3>
-          <p className="text-[0.85rem] text-gray-600 leading-relaxed mb-5 flex-1">{description}</p>
+          <p className="text-[0.85rem] text-gray-600 leading-relaxed mb-5 flex-1 whitespace-pre-line">{description}</p>
           <button 
             type="button" 
             className="self-start px-5 py-2 bg-[#f0a04b] text-white text-[0.72rem] font-bold tracking-wider rounded-full transition-all duration-300 hover:bg-[#e08f3a] hover:scale-105"
@@ -118,7 +118,7 @@ function EventCard({ image, date, title, description, time = "10:00 AM - 4:00 PM
                 <i className="fa-solid fa-circle-info text-[#b5835a]"></i>
                 Event Details
               </div>
-              <p className="text-gray-600 leading-relaxed">
+              <p className="text-gray-600 leading-relaxed whitespace-pre-line">
                 {description}
               </p>
             </div>

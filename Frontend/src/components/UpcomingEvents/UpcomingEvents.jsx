@@ -4,27 +4,17 @@ export const UPCOMING_EVENTS = [
   {
     id: 101,
     image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&h=400&fit=crop',
-    date: 'August 2024',
-    title: 'COMMUNICATION MASTERY',
-    description:
-      'An intensive 2-day workshop designed to elevate your public speaking, negotiation, and interpersonal communication skills.',
+    date: 'August 2026',
+    title: 'Self Introduction & Ice-Breaking',
+    description: '• Club introduction and welcome session\n• Self and pair introduction activities\n• Interactive confidence-building games\n• Build comfort and reduce stage fear\n• Encourage active participation and teamwork',
     featured: true,
   },
   {
     id: 102,
     image: 'https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=600&h=400&fit=crop',
-    date: 'October 2024',
-    title: 'LEADERSHIP BOOTCAMP',
-    description:
-      'Step into leadership with confidence. Learn practical management strategies and team-building techniques from industry experts.',
-  },
-  {
-    id: 103,
-    image: 'https://images.unsplash.com/photo-1531482615713-2afd69097998?w=600&h=400&fit=crop',
-    date: 'December 2024',
-    title: 'WINTER NETWORKING MIXER',
-    description:
-      'Connect with alumni and professionals. Build your network and discover new career opportunities in a relaxed setting.',
+    date: 'August 2026',
+    title: 'Body Language & Expression',
+    description: '• Practice posture and eye contact\n• 30-second confidence speaking activity\n• Group interaction and communication exercises\n• Confidence walk and stage presence practice\n• Improve body language and self-expression',
   },
 ]
 
