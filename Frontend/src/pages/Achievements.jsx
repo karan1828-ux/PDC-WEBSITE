@@ -1,6 +1,6 @@
 import Navbar from '../components/Navbar/Navbar'
 import AnnouncementBar from '../components/AnnouncementBar/AnnouncementBar'
-import PastEvents from '../components/PastEvents/PastEvents'
+// import PastEvents from '../components/PastEvents/PastEvents'
 
 function Achievements() {
   return (
@@ -17,7 +17,7 @@ function Achievements() {
         </p>
       </section>
 
-      <PastEvents />
+      {/* <PastEvents /> */}
     </main>
   )
 }

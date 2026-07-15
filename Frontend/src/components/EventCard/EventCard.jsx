@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-function EventCard({ image, date, title, description, time = "10:00 AM - 4:00 PM", location = "Main Auditorium, DIT University", featured = false }) {
+function EventCard({ image, date, title, description, time = "10:00 AM - 4:00 PM", location = "Main Auditorium, DIT University", head, eventPhotos = [], featured = false }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   // Prevent background scrolling when modal is open
@@ -29,7 +29,7 @@ function EventCard({ image, date, title, description, time = "10:00 AM - 4:00 PM
         <div className="flex flex-col flex-1 p-6 relative z-10">
           <time className="text-[0.8rem] font-medium text-gray-500 mb-2" dateTime={date}>{date}</time>
           <h3 className="text-[0.95rem] font-bold tracking-wide text-[#0f274d] leading-snug mb-3">{title}</h3>
-          <p className="text-[0.85rem] text-gray-600 leading-relaxed mb-5 flex-1">{description}</p>
+          <p className="text-[0.85rem] text-gray-600 leading-relaxed mb-5 flex-1 whitespace-pre-line">{description}</p>
           <button 
             type="button" 
             className="self-start px-5 py-2 bg-[#f0a04b] text-white text-[0.72rem] font-bold tracking-wider rounded-full transition-all duration-300 hover:bg-[#e08f3a] hover:scale-105"
@@ -78,7 +78,7 @@ function EventCard({ image, date, title, description, time = "10:00 AM - 4:00 PM
               </h2>
 
               {/* Meta Info Row */}
-              <div className="flex flex-col sm:flex-row gap-6 sm:gap-4 justify-between mb-8">
+              <div className="flex flex-wrap gap-6 sm:gap-4 justify-between mb-8">
                 {/* Date */}
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 rounded-xl bg-[#fdeedc] text-[#b5835a] flex items-center justify-center shrink-0">
@@ -90,16 +90,31 @@ function EventCard({ image, date, title, description, time = "10:00 AM - 4:00 PM
                   </div>
                 </div>
 
-                {/* Time */}
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-[#fdeedc] text-[#b5835a] flex items-center justify-center shrink-0">
-                    <i className="fa-regular fa-clock text-xl"></i>
+                {/* Time (if provided) */}
+                {time && (
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-xl bg-[#fdeedc] text-[#b5835a] flex items-center justify-center shrink-0">
+                      <i className="fa-regular fa-clock text-xl"></i>
+                    </div>
+                    <div className="flex flex-col">
+                      <span className="text-[10px] text-gray-500 font-bold tracking-wider mb-1">TIME</span>
+                      <span className="text-sm font-bold text-[#111]">{time}</span>
+                    </div>
                   </div>
-                  <div className="flex flex-col">
-                    <span className="text-[10px] text-gray-500 font-bold tracking-wider mb-1">TIME</span>
-                    <span className="text-sm font-bold text-[#111]">{time}</span>
+                )}
+
+                {/* Event Head */}
+                {head && (
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-xl bg-[#fdeedc] text-[#b5835a] flex items-center justify-center shrink-0">
+                      <i className="fa-solid fa-user-tie text-xl"></i>
+                    </div>
+                    <div className="flex flex-col">
+                      <span className="text-[10px] text-gray-500 font-bold tracking-wider mb-1">EVENT HEAD</span>
+                      <span className="text-sm font-bold text-[#111]">{head}</span>
+                    </div>
                   </div>
-                </div>
+                )}
 
                 {/* Location */}
                 <div className="flex items-center gap-4">
@@ -118,9 +133,27 @@ function EventCard({ image, date, title, description, time = "10:00 AM - 4:00 PM
                 <i className="fa-solid fa-circle-info text-[#b5835a]"></i>
                 Event Details
               </div>
-              <p className="text-gray-600 leading-relaxed">
+              <p className="text-gray-600 leading-relaxed whitespace-pre-line">
                 {description}
               </p>
+
+              {/* Event Photos */}
+              {eventPhotos && eventPhotos.length > 0 && (
+                <>
+                  <hr className="border-gray-200 my-8" />
+                  <div className="flex items-center gap-2 font-bold text-lg text-[#111] mb-4">
+                    <i className="fa-solid fa-images text-[#b5835a]"></i>
+                    Event Gallery
+                  </div>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                    {eventPhotos.map((photo, idx) => (
+                      <div key={idx} className="w-full h-32 rounded-lg overflow-hidden shadow-sm">
+                        <img src={photo} alt={`Event photo ${idx + 1}`} className="w-full h-full object-cover transition-transform hover:scale-105 duration-300" />
+                      </div>
+                    ))}
+                  </div>
+                </>
+              )}
             </div>
           </div>
         </div>
