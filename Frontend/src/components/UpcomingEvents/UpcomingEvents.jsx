@@ -1,24 +1,25 @@
+import { useState, useEffect } from 'react'
 import EventCard from '../EventCard/EventCard'
-
-export const UPCOMING_EVENTS = [
-  {
-    id: 101,
-    image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&h=400&fit=crop',
-    date: 'August 2026',
-    title: 'Self Introduction & Ice-Breaking',
-    description: '• Club introduction and welcome session\n• Self and pair introduction activities\n• Interactive confidence-building games\n• Build comfort and reduce stage fear\n• Encourage active participation and teamwork',
-    featured: true,
-  },
-  {
-    id: 102,
-    image: 'https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=600&h=400&fit=crop',
-    date: 'August 2026',
-    title: 'Body Language & Expression',
-    description: '• Practice posture and eye contact\n• 30-second confidence speaking activity\n• Group interaction and communication exercises\n• Confidence walk and stage presence practice\n• Improve body language and self-expression',
-  },
-]
+import { fetchAllEvents } from '../../services/api'
 
 function UpcomingEvents() {
+  const [events, setEvents] = useState([]);
+
+  useEffect(() => {
+    const loadEvents = async () => {
+      const data = await fetchAllEvents();
+      const upcoming = data.filter(e => e.eventschedule === 'upcoming').map((e, idx) => ({
+        id: e.id,
+        image: e.coverphoto || 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&h=400&fit=crop',
+        date: e.eventdate,
+        title: e.eventname,
+        description: e.description,
+        featured: idx === 0
+      }));
+      setEvents(upcoming);
+    };
+    loadEvents();
+  }, []);
   return (
     <section id="upcoming-events" className="scroll-mt-20 bg-white py-12 sm:py-16 px-5 sm:px-8" aria-labelledby="upcoming-events-heading">
       <div className="max-w-[1200px] mx-auto">
@@ -43,7 +44,7 @@ function UpcomingEvents() {
         </header>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 [&>*:last-child]:md:col-span-2 [&>*:last-child]:md:max-w-[480px] [&>*:last-child]:md:justify-self-center [&>*:last-child]:md:w-full [&>*:last-child]:lg:col-span-1 [&>*:last-child]:lg:max-w-none">
-          {UPCOMING_EVENTS.map((event) => (
+          {events.map((event) => (
             <EventCard
               key={event.id}
               image={event.image}

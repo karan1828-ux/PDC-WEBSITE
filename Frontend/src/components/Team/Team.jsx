@@ -1,37 +1,24 @@
+import { useState, useEffect } from 'react'
 import TeamCard from './TeamCard'
-
-const TEAM_MEMBERS = [
-  {
-    id: 1,
-    name: 'Aarav Sharma',
-    role: 'President',
-    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop&crop=faces',
-    quote: 'Growth happens outside your comfort zone.',
-  },
-  {
-    id: 2,
-    name: 'Priya Verma',
-    role: 'Vice President',
-    image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=300&h=300&fit=crop&crop=faces',
-    quote: 'Confidence is built one conversation at a time.',
-  },
-  {
-    id: 3,
-    name: 'Rohan Mehta',
-    role: 'Events Head',
-    image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=300&h=300&fit=crop&crop=faces',
-    quote: 'Every event is a chance to inspire someone.',
-  },
-  {
-    id: 4,
-    name: 'Ishita Kapoor',
-    role: 'Outreach Lead',
-    image: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=300&h=300&fit=crop&crop=faces',
-    quote: 'Community is where real growth begins.',
-  },
-]
+import { fetchAllMembers } from '../../services/api'
 
 function Team() {
+  const [teamMembers, setTeamMembers] = useState([]);
+
+  useEffect(() => {
+    const loadMembers = async () => {
+      const data = await fetchAllMembers();
+      const members = data.map(m => ({
+        id: m.id,
+        name: m.name,
+        role: m.role,
+        image: m.image_url || 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop&crop=faces',
+        quote: m.description || 'Growth happens outside your comfort zone.',
+      }));
+      setTeamMembers(members);
+    };
+    loadMembers();
+  }, []);
   return (
     <section id="team" className="bg-[#f8fafc] py-12 sm:py-16 px-5 sm:px-8" aria-labelledby="team-heading">
       <div className="max-w-[1200px] mx-auto">
@@ -60,7 +47,7 @@ function Team() {
         </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
-          {TEAM_MEMBERS.map((member) => (
+          {teamMembers.map((member) => (
             <TeamCard
               key={member.id}
               name={member.name}
