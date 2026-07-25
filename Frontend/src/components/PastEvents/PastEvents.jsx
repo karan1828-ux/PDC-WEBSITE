@@ -1,37 +1,28 @@
+import { useState, useEffect } from 'react'
 import EventCard from '../EventCard/EventCard'
+import { fetchAllEvents } from '../../services/api'
 import confidenceWorkshopImg from '../../assets/events/confidence_workshop.png'
 import annualSummitImg from '../../assets/events/annual_summit.png'
 import leadershipSeminarImg from '../../assets/events/leadership_seminar.png'
 
-const EVENTS = [
-  {
-    id: 1,
-    image: confidenceWorkshopImg,
-    date: 'Sept 2023',
-    title: 'BUILDING CONFIDENCE WORKSHOP',
-    description:
-      'A hands-on session focused on boosting self-esteem and public speaking skills through interactive activities.',
-    featured: true,
-  },
-  {
-    id: 2,
-    image: annualSummitImg,
-    date: 'June 2024',
-    title: 'PDC ANNUAL SUMMIT',
-    description:
-      'Our flagship event bringing together members, alumni, and guest speakers for a day of inspiration and networking.',
-  },
-  {
-    id: 3,
-    image: leadershipSeminarImg,
-    date: 'March 2024',
-    title: 'LEADERSHIP SEMINAR',
-    description:
-      'Exploring core leadership principles and practical strategies for leading teams and initiatives effectively.',
-  },
-]
-
 function PastEvents() {
+  const [events, setEvents] = useState([]);
+
+  useEffect(() => {
+    const loadEvents = async () => {
+      const data = await fetchAllEvents();
+      const past = data.filter(e => e.eventschedule === 'past').map((e, idx) => ({
+        id: e.id,
+        image: e.coverphoto || annualSummitImg,
+        date: e.eventdate,
+        title: e.eventname,
+        description: e.description,
+        featured: idx === 0
+      }));
+      setEvents(past);
+    };
+    loadEvents();
+  }, []);
   return (
     <section id="events" className="bg-white py-12 sm:py-16 px-5 sm:px-8" aria-labelledby="past-events-heading">
       <div className="max-w-[1200px] mx-auto">
@@ -56,7 +47,7 @@ function PastEvents() {
         </header>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 [&>*:last-child]:md:col-span-2 [&>*:last-child]:md:max-w-[480px] [&>*:last-child]:md:justify-self-center [&>*:last-child]:md:w-full [&>*:last-child]:lg:col-span-1 [&>*:last-child]:lg:max-w-none">
-          {EVENTS.map((event) => (
+          {events.map((event) => (
             <EventCard
               key={event.id}
               image={event.image}

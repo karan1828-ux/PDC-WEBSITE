@@ -1,45 +1,29 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Navbar from '../components/Navbar/Navbar'
-
-const initialMembers = [
-  {
-    id: 1,
-    name: "Sarah Jenkins",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuDd5fowOW0GCuo5PyrmKSMsFvAFeGJaqWUklpJfhPA6MJ7sPgVjNER9Xc_LwMzmteVi6IzOvnC0R1cTeDykmSo1AK06Uq1pE-KhqSn0xqV6z9a_V4T8tjpklrWee7P13_5lw44s2hbnvqDLo1WGkqkbIrCm9HU1M7_w8HRtFA1T1kerVCVJMlLXF0vBOnlQEJkkO2lBiXosfBagrY03iJ7wjf4YjIdv-_WZ6YXcNZ78R9_dM6fGow_84SYFXB5NbDLxBTet26ClOWS-",
-    score: 98.2,
-    achievement: "Best Speaker, Leadership Summit",
-    hasStar: true,
-  },
-  {
-    id: 2,
-    name: "Michael Chen",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuCOZiqOfgFGYIb4Az_Seco3VlA404d1BJgp5AgclcGwEavHFwY7kp_d7rmsAm8uZehl_fZUqn0GgavOiFcfdiI5CYRqxYob-gbd4yYKaT_n7rlYq8U8G58dkMDFLGf8Lab_jXf0yQldurPSgA7zt4-SwIc-Y3A8H6iZCflX0bRxYZGhY2IHQVnjaMMX3BnSyUoUW2tmUH9gaKGvY4ffsDC2FKEAe-11rfuAiI4lTXUn2jg4LIhlACy0VOpVBF1ragHZSijKs1Jg9MQT",
-    score: 96.5,
-    achievement: "Confidence Workshop Leader",
-    hasStar: false,
-  },
-  {
-    id: 3,
-    name: "Ayesha Khan",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuAmhxZrunrZ3Ku-zdCWMFAu7oSzaDYHkbmp0A1NOl3-ZNMP-2IkakzGIhmTXng_1uj10QEyTqtRgph7VTKv9_ANWKtsK-aRnQkghcds1L9t9WfOJ_laOiGWDOfjsSECYb7pL3OUX4ddwDz9ezCfaRLY76nVwqVMIJJRgZNEa-7ePRzaC_wVIhl7CMlqAiUWGcb-b2dRl_rKHLFEVSfZwbdg32OD1v7UqhayCQyUqRYkcAn6L_inPb5TjbS9h1t3mzIGajw-E87Nixs1",
-    score: 95.8,
-    achievement: "Team Project Lead",
-    hasStar: true,
-  },
-  {
-    id: 4,
-    name: "Daran Blanden",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuAerwcljz0h1G_UBfYQBqfgiC4csbLRGNhZZ4lJTVBd_7cpBBkfMmTvqyEYAbGu-FjpUqrWiamVV0A9rNlmMt46exiLS9sdXLTEsr4d-cvKXlTVIdvMPGq0MCNa9XCP9ZvoeYYXrh-AMeV1P0sRhyRNYXhHssi5--9ms06lSA7ETNPMYNDUg8YXYZZpaINUCfVRtDZAugAY-xBnLQ1KaHeOCZVpvtyoA3tPM-7fLCPfvYU3BxUynHJztaHzRAqJ_gLvdYj-2qwe8vwb",
-    score: 94.1,
-    achievement: "Best Speaker Summit",
-    hasStar: false,
-  }
-];
+import { fetchTop10Members } from '../services/api'
 
 function Leaderboard() {
   const [sortBy, setSortBy] = useState('highest');
+  const [members, setMembers] = useState([]);
 
-  const sortedMembers = [...initialMembers].sort((a, b) => {
+  useEffect(() => {
+    const loadMembers = async () => {
+      const data = await fetchTop10Members();
+      // data is array of pp_score records with nested `members` object
+      const formatted = data.map((item, index) => ({
+        id: item.id || index,
+        name: item.members?.name || 'Unknown',
+        image: item.members?.image_url || 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop&crop=faces',
+        score: item.total_pp_score || 0,
+        achievement: item.members?.role || '',
+        hasStar: index === 0,
+      }));
+      setMembers(formatted);
+    };
+    loadMembers();
+  }, []);
+
+  const sortedMembers = [...members].sort((a, b) => {
     if (sortBy === 'highest') {
       return b.score - a.score;
     } else {

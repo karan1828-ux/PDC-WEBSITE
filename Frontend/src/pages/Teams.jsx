@@ -15,7 +15,7 @@ export default function Teams() {
         <p className="text-xl md:text-2xl text-gray-500 font-medium">
           Will be released soon.
         </p>
-        {/* <Team /> */}
+        <Team />
       </div>
     </main>
   );
