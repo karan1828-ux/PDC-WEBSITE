@@ -58,10 +58,10 @@ function Footer() {
               <li className="flex items-center gap-2.5 text-[0.82rem] text-[#495057]">
                 <i className="fa-solid fa-envelope w-4 text-center text-[#0f274d]"></i>
                 <a
-                  href="mailto:email@personalityny.com"
+                  href="mailto:pdcditu@gmail.com"
                   className="hover:text-[#f0a04b]"
                 >
-                  email@personalityny.com
+                  pdcditu@gmail.com
                 </a>
               </li>
 
