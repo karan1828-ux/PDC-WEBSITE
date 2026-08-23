@@ -80,6 +80,10 @@ function Footer() {
               <a href="https://www.linkedin.com/company/personality-development-club-pdc/posts/" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center w-9 h-9 rounded-full bg-[#0f274d] text-white hover:bg-[#f0a04b] transition-all">
                 <i className="fa-brands fa-linkedin-in text-sm"></i>
               </a>
+
+              <a href="https://chat.whatsapp.com/EcWTYYT8HZfH0Es4w0eDYU" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center w-9 h-9 rounded-full bg-[#0f274d] text-white hover:bg-[#f0a04b] transition-all">
+                <i className="fa-brands fa-whatsapp text-sm"></i>
+              </a>
             </div>
 
             <p className="text-[0.72rem] text-[#868e96] leading-relaxed max-w-[220px]">
