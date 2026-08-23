@@ -4,7 +4,7 @@ import Navbar from '../components/Navbar/Navbar'
 import AnnouncementBar from '../components/AnnouncementBar/AnnouncementBar'
 import Hero from '../components/Hero/Hero'
 import OurVision from '../components/Vision/OurVision'
-// import PastEvents from '../components/PastEvents/PastEvents'
+import UpcomingEvents from '../components/UpcomingEvents/UpcomingEvents'
 import ContactUs from '../components/ContactUs/ContactUs'
 import Footer from '../components/Footer/Footer'
 
@@ -34,7 +34,7 @@ function Home() {
 
       <Hero />
       <OurVision />
-      {/* <PastEvents /> */}
+      <UpcomingEvents />
       <ContactUs />
       <Footer />
     </main>

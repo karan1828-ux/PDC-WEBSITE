@@ -1,22 +1,40 @@
 import { useState, useEffect } from 'react'
 import EventCard from '../EventCard/EventCard'
 import { fetchAllEvents } from '../../services/api'
+import placeholderImg from '../../assets/events/confidence_workshop.png'
 
 function UpcomingEvents() {
-  const [events, setEvents] = useState([]);
+  const [events, setEvents] = useState([
+    {
+      id: 'hardcoded-1',
+      image: placeholderImg,
+      date: 'Monday, 24th August 2026',
+      time: '4:00 PM – 6:00 PM',
+      location: 'Chanakya seminar hall, DIT University',
+      head: 'Aanandi Bhatt & Karan Gulati',
+      title: 'UNMUTE YOURSELF',
+      description: 'Polish Your Presence, Perfect Your Future!\n\n• Nurture Focus: Enhance mental focus and goal-oriented concentration.\n• Sharpen Reflexes: Improve your response and reaction to challenges.\n\n"Find your voice, own your personality"',
+      featured: true,
+      eventPhotos: ['/unmute-yourself-poster.png']
+    }
+  ]);
 
   useEffect(() => {
     const loadEvents = async () => {
-      const data = await fetchAllEvents();
-      const upcoming = data.filter(e => e.eventschedule === 'upcoming').map((e, idx) => ({
-        id: e.id,
-        image: e.coverphoto || 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&h=400&fit=crop',
-        date: e.eventdate,
-        title: e.eventname,
-        description: e.description,
-        featured: idx === 0
-      }));
-      setEvents(upcoming);
+      try {
+        const data = await fetchAllEvents();
+        const upcoming = data.filter(e => e.eventschedule === 'upcoming').map((e, idx) => ({
+          id: e.id,
+          image: e.coverphoto || 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&h=400&fit=crop',
+          date: e.eventdate,
+          title: e.eventname,
+          description: e.description,
+          featured: false
+        }));
+        setEvents(prev => [...prev, ...upcoming]);
+      } catch (error) {
+        console.error("Error fetching events:", error);
+      }
     };
     loadEvents();
   }, []);
@@ -43,16 +61,21 @@ function UpcomingEvents() {
           </span>
         </header>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 [&>*:last-child]:md:col-span-2 [&>*:last-child]:md:max-w-[480px] [&>*:last-child]:md:justify-self-center [&>*:last-child]:md:w-full [&>*:last-child]:lg:col-span-1 [&>*:last-child]:lg:max-w-none">
+        <div className="flex flex-wrap justify-center gap-6 lg:gap-8">
           {events.map((event) => (
-            <EventCard
-              key={event.id}
-              image={event.image}
-              date={event.date}
-              title={event.title}
-              description={event.description}
-              featured={event.featured}
-            />
+            <div key={event.id} className="w-full sm:w-[480px] max-w-full">
+              <EventCard
+                image={event.image}
+                date={event.date}
+                title={event.title}
+                description={event.description}
+                featured={event.featured}
+                time={event.time}
+                location={event.location}
+                head={event.head}
+                eventPhotos={event.eventPhotos}
+              />
+            </div>
           ))}
         </div>
       </div>
