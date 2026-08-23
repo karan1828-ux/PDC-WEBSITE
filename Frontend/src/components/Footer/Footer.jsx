@@ -52,7 +52,9 @@ function Footer() {
             <ul className="flex flex-col gap-3">
               <li className="flex items-center gap-2.5 text-[0.82rem] text-[#495057]">
                 <i className="fa-solid fa-location-dot w-4 text-center text-[#0f274d]"></i>
-                <span>Dit University,Dehradun</span>
+                <a href="https://maps.google.com/?q=DIT+University,+Dehradun" target="_blank" rel="noopener noreferrer" className="hover:text-[#f0a04b] transition-colors">
+                  Dit University, Dehradun
+                </a>
               </li>
 
               <li className="flex items-center gap-2.5 text-[0.82rem] text-[#495057]">
@@ -65,35 +67,18 @@ function Footer() {
                 </a>
               </li>
 
-              <li className="flex items-center gap-2.5 text-[0.82rem] text-[#495057]">
-                <i className="fa-solid fa-phone w-4 text-center text-[#0f274d]"></i>
-                <a
-                  href="tel:+19233234220"
-                  className="hover:text-[#f0a04b]"
-                >
-                  +1 (923) 323-4220
-                </a>
-              </li>
             </ul>
           </div>
 
           <div className="flex flex-col items-start lg:col-span-1 md:col-span-full md:flex-row md:flex-wrap md:items-center md:justify-between lg:flex-col lg:items-start lg:justify-start gap-4">
 
             <div className="flex gap-3">
-              <a href="#" className="flex items-center justify-center w-9 h-9 rounded-full bg-[#0f274d] text-white hover:bg-[#f0a04b] transition-all">
-                <i className="fa-brands fa-facebook-f text-sm"></i>
-              </a>
-
-              <a href="#" className="flex items-center justify-center w-9 h-9 rounded-full bg-[#0f274d] text-white hover:bg-[#f0a04b] transition-all">
+              <a href="https://www.instagram.com/pdc.ditu/" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center w-9 h-9 rounded-full bg-[#0f274d] text-white hover:bg-[#f0a04b] transition-all">
                 <i className="fa-brands fa-instagram text-sm"></i>
               </a>
 
-              <a href="#" className="flex items-center justify-center w-9 h-9 rounded-full bg-[#0f274d] text-white hover:bg-[#f0a04b] transition-all">
+              <a href="https://www.linkedin.com/company/personality-development-club-pdc/posts/" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center w-9 h-9 rounded-full bg-[#0f274d] text-white hover:bg-[#f0a04b] transition-all">
                 <i className="fa-brands fa-linkedin-in text-sm"></i>
-              </a>
-
-              <a href="#" className="flex items-center justify-center w-9 h-9 rounded-full bg-[#0f274d] text-white hover:bg-[#f0a04b] transition-all">
-                <i className="fa-brands fa-youtube text-sm"></i>
               </a>
             </div>
 
