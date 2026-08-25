@@ -1,34 +1,43 @@
+import { useState, useEffect } from 'react'
 import EventCard from '../EventCard/EventCard'
-
-export const UPCOMING_EVENTS = [
-  {
-    id: 101,
-    image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&h=400&fit=crop',
-    date: 'August 2024',
-    title: 'COMMUNICATION MASTERY',
-    description:
-      'An intensive 2-day workshop designed to elevate your public speaking, negotiation, and interpersonal communication skills.',
-    featured: true,
-  },
-  {
-    id: 102,
-    image: 'https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=600&h=400&fit=crop',
-    date: 'October 2024',
-    title: 'LEADERSHIP BOOTCAMP',
-    description:
-      'Step into leadership with confidence. Learn practical management strategies and team-building techniques from industry experts.',
-  },
-  {
-    id: 103,
-    image: 'https://images.unsplash.com/photo-1531482615713-2afd69097998?w=600&h=400&fit=crop',
-    date: 'December 2024',
-    title: 'WINTER NETWORKING MIXER',
-    description:
-      'Connect with alumni and professionals. Build your network and discover new career opportunities in a relaxed setting.',
-  },
-]
+import { fetchAllEvents } from '../../services/api'
+import placeholderImg from '../../assets/events/confidence_workshop.png'
 
 function UpcomingEvents() {
+  const [events, setEvents] = useState([
+    {
+      id: 'hardcoded-1',
+      image: placeholderImg,
+      date: 'Monday, 24th August 2026',
+      time: '4:00 PM – 6:00 PM',
+      location: 'Chanakya seminar hall, DIT University',
+      head: 'Aanandi Bhatt & Karan Gulati',
+      title: 'UNMUTE YOURSELF',
+      description: 'Polish Your Presence, Perfect Your Future!\n\n• Nurture Focus: Enhance mental focus and goal-oriented concentration.\n• Sharpen Reflexes: Improve your response and reaction to challenges.\n\n"Find your voice, own your personality"',
+      featured: true,
+      eventPhotos: ['/unmute-yourself-poster.png']
+    }
+  ]);
+
+  useEffect(() => {
+    const loadEvents = async () => {
+      try {
+        const data = await fetchAllEvents();
+        const upcoming = data.filter(e => e.eventschedule === 'upcoming').map((e, idx) => ({
+          id: e.id,
+          image: e.coverphoto || 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&h=400&fit=crop',
+          date: e.eventdate,
+          title: e.eventname,
+          description: e.description,
+          featured: false
+        }));
+        setEvents(prev => [...prev, ...upcoming]);
+      } catch (error) {
+        console.error("Error fetching events:", error);
+      }
+    };
+    loadEvents();
+  }, []);
   return (
     <section id="upcoming-events" className="scroll-mt-20 bg-white py-12 sm:py-16 px-5 sm:px-8" aria-labelledby="upcoming-events-heading">
       <div className="max-w-[1200px] mx-auto">
@@ -52,16 +61,21 @@ function UpcomingEvents() {
           </span>
         </header>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 [&>*:last-child]:md:col-span-2 [&>*:last-child]:md:max-w-[480px] [&>*:last-child]:md:justify-self-center [&>*:last-child]:md:w-full [&>*:last-child]:lg:col-span-1 [&>*:last-child]:lg:max-w-none">
-          {UPCOMING_EVENTS.map((event) => (
-            <EventCard
-              key={event.id}
-              image={event.image}
-              date={event.date}
-              title={event.title}
-              description={event.description}
-              featured={event.featured}
-            />
+        <div className="flex flex-wrap justify-center gap-6 lg:gap-8">
+          {events.map((event) => (
+            <div key={event.id} className="w-full sm:w-[480px] max-w-full">
+              <EventCard
+                image={event.image}
+                date={event.date}
+                title={event.title}
+                description={event.description}
+                featured={event.featured}
+                time={event.time}
+                location={event.location}
+                head={event.head}
+                eventPhotos={event.eventPhotos}
+              />
+            </div>
           ))}
         </div>
       </div>

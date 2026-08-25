@@ -5,9 +5,9 @@ import Logo from './Logo'
 
 const NAV_LINKS = [
   { label: 'HOME', href: '/' },
-  { label: 'EVENTS', href: '/#upcoming-events' },
-  { label: 'PERSONALITY %', href: '/personality' },
-  { label: 'ACHIEVEMENTS', href: '/achievements' },
+  { label: 'EVENTS', href: '/upcoming-events' },
+  // { label: 'PERSONALITY %', href: '/personality' },
+  // { label: 'ACHIEVEMENTS', href: '/achievements' },
   { label: 'TEAMS', href: '/teams' },
 ]
 
@@ -43,14 +43,14 @@ function Navbar({ onLoginClick, onHomeClick }) {
 
           <div className="hidden sm:flex sm:items-center sm:space-x-8">
             {NAV_LINKS.map((link) => (
-              <a
+              <Link
                 key={link.label}
-                href={link.href}
+                to={link.href}
                 className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors"
                 onClick={closeMenu}
               >
                 {link.label}
-              </a>
+              </Link>
             ))}
           </div>
 
@@ -69,14 +69,14 @@ function Navbar({ onLoginClick, onHomeClick }) {
         <div className="sm:hidden absolute top-16 left-0 w-full bg-white shadow-lg border-b border-gray-200">
           <div className="px-2 pt-2 pb-3 space-y-1">
             {NAV_LINKS.map((link) => (
-              <a
+              <Link
                 key={link.label}
-                href={link.href}
+                to={link.href}
                 className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50"
                 onClick={closeMenu}
               >
                 {link.label}
-              </a>
+              </Link>
             ))}
           </div>
         </div>

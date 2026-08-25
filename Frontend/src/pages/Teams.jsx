@@ -10,7 +10,7 @@ export default function Teams() {
         <AnnouncementBar empty={true} />
       </header>
 
-      <div className="flex-grow flex flex-col justify-center">
+      <div className="flex-grow flex flex-col pt-8 pb-20">
         <Team />
       </div>
     </main>

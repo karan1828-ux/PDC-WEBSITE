@@ -1,7 +1,22 @@
-import { UPCOMING_EVENTS } from '../UpcomingEvents/UpcomingEvents';
+import { useState, useEffect } from 'react';
+import { fetchAllEvents } from '../../services/api';
+import { Link } from 'react-router-dom';
 
 function AnnouncementBar({ empty = false }) {
-  if (empty) {
+  const [upcomingEvents, setUpcomingEvents] = useState([]);
+
+  useEffect(() => {
+    if (!empty) {
+      const loadEvents = async () => {
+        const data = await fetchAllEvents();
+        const upcoming = data.filter(e => e.eventschedule === 'upcoming');
+        setUpcomingEvents(upcoming);
+      };
+      loadEvents();
+    }
+  }, [empty]);
+
+  if (empty || upcomingEvents.length === 0) {
     return (
       <aside className="bg-[#0f274d] overflow-hidden w-full mt-16" aria-hidden="true">
         <div className="flex items-center py-2.5 text-[0.65rem] md:text-[0.72rem] lg:text-sm">
@@ -11,14 +26,14 @@ function AnnouncementBar({ empty = false }) {
     );
   }
 
-  const marqueeContent = UPCOMING_EVENTS.map((event, index) => (
+  const marqueeContent = upcomingEvents.map((event, index) => (
     <span key={event.id || index} className="inline-flex items-center pr-1">
       <span className="text-white/40 mx-2 sm:mx-4 font-light" aria-hidden="true">|</span>
-      <a href="#upcoming-events" className="hover:text-[#f0a04b] transition-colors cursor-pointer">
-        {event.title}
-      </a>
+      <Link to="/upcoming-events" className="hover:text-[#f0a04b] transition-colors cursor-pointer">
+        {event.eventname || event.title}
+      </Link>
     </span>
-  ))
+  ));
 
   return (
     <aside className="bg-[#0f274d] overflow-hidden w-full mt-16" aria-label="Upcoming events announcements">

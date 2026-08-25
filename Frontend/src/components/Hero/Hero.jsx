@@ -91,6 +91,21 @@ function Hero() {
           Transforming Individuals, Empowering Lives at PDC
         </motion.p>
 
+        <motion.a
+          href="https://docs.google.com/forms/d/e/1FAIpQLSfP-dZFebfy0I88d-px2sTggsD1vBCMQNvaU0JQh5ArmiPLfw/viewform?hl=en_GB&pli=1&utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAcGRvZgJleHRuA2FlbQIxMQBzcnRjBmFwcF9pZA81NjcwNjczNDMzNTI0MjcAAadDXzUouPZ7leE8k7CnEceWmf6jlLXX3625EPxhR6z2pQ-f9yIA_GLOYE2KFA_aem_lFe2yT246vDeiahtuFr8mA"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-block mt-8 px-8 py-3 bg-[#f0a04b] text-[#111] text-sm md:text-base font-bold tracking-widest rounded-full hover:bg-[#e08f3a] transition-all hover:scale-105 shadow-[0_0_20px_rgba(240,160,75,0.4)] hover:shadow-[0_0_30px_rgba(240,160,75,0.6)]"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: [0.215, 0.61, 0.355, 1], delay: 0.6 }}
+          style={{
+            fontFamily: "'Inter', sans-serif",
+          }}
+        >
+          JOIN US
+        </motion.a>
+
         {/* Scroll indicator */}
         <motion.div
           className="absolute left-1/2 -translate-x-1/2 bottom-[-80px]"
