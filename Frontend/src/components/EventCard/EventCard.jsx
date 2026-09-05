@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import pdcLogo from '../../assets/pdc-logo.png';
 
 function EventCard({ image, date, title, description, time = "10:00 AM - 4:00 PM", location = "Main Auditorium, DIT University", head, eventPhotos = [], featured = false }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -18,7 +19,7 @@ function EventCard({ image, date, title, description, time = "10:00 AM - 4:00 PM
   return (
     <>
       <article className={`flex flex-col bg-white rounded-2xl shadow-[0_4px_20px_rgba(15,39,77,0.12)] overflow-hidden transition-all duration-300 hover:-translate-y-2 hover:scale-[1.02] hover:shadow-[0_8px_32px_rgba(240,160,75,0.3)] group relative ${featured ? 'after:content-[""] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[60%] after:bg-gradient-to-t after:from-[rgba(240,160,75,0.12)] after:to-transparent after:pointer-events-none after:opacity-0 group-hover:after:opacity-100 after:transition-opacity after:duration-300' : ''}`}>
-        <div className="relative w-full h-[180px] md:h-[200px] overflow-hidden">
+        <div className="relative w-full h-[150px] md:h-[170px] overflow-hidden">
           <img 
             src={image} 
             alt={title} 
@@ -26,7 +27,7 @@ function EventCard({ image, date, title, description, time = "10:00 AM - 4:00 PM
             loading="lazy" 
           />
         </div>
-        <div className="flex flex-col flex-1 p-6 relative z-10">
+        <div className="flex flex-col flex-1 p-5 relative z-10">
           <time className="text-[0.8rem] font-medium text-gray-500 mb-2" dateTime={date}>{date}</time>
           <h3 className="text-[0.95rem] font-bold tracking-wide text-[#0f274d] leading-snug mb-3">{title}</h3>
           <p className="text-[0.85rem] text-gray-600 leading-relaxed mb-5 flex-1 whitespace-pre-line">{description}</p>
@@ -68,7 +69,7 @@ function EventCard({ image, date, title, description, time = "10:00 AM - 4:00 PM
             <div className="p-6 sm:p-10 flex flex-col">
               {/* Top Label */}
               <div className="flex items-center gap-2 text-[#b5835a] font-bold text-[10px] tracking-widest mb-3 uppercase">
-                <i className="fa-solid fa-award text-sm"></i>
+                <img src={pdcLogo} alt="PDC Logo" className="w-5 h-5 object-contain" />
                 Personality Development Club
               </div>
 
