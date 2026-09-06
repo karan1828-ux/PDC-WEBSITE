@@ -89,9 +89,7 @@ function Team() {
           </span>
         </header>
 
-        <p className="text-center text-[0.85rem] text-gray-600 max-w-xl mx-auto mb-10 -mt-4">
-          Move your cursor over a card to see it tilt — a small nod to the perspective every member brings to PDC.
-        </p>
+
 
         <div className="flex flex-col gap-12 sm:gap-16">
           {teamGroups.map((group, index) => (
