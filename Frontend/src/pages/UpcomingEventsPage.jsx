@@ -1,6 +1,7 @@
 import Navbar from '../components/Navbar/Navbar'
 import AnnouncementBar from '../components/AnnouncementBar/AnnouncementBar'
 import UpcomingEvents from '../components/UpcomingEvents/UpcomingEvents'
+import PastEvents from '../components/PastEvents/PastEvents'
 import Footer from '../components/Footer/Footer'
 
 function UpcomingEventsPage() {
@@ -12,6 +13,7 @@ function UpcomingEventsPage() {
       </header>
       <div className="flex-1">
         <UpcomingEvents />
+        <PastEvents />
       </div>
       <Footer />
     </main>

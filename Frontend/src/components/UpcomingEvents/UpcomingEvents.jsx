@@ -4,20 +4,7 @@ import { fetchAllEvents } from '../../services/api'
 import placeholderImg from '../../assets/events/confidence_workshop.png'
 
 function UpcomingEvents() {
-  const [events, setEvents] = useState([
-    {
-      id: 'hardcoded-1',
-      image: placeholderImg,
-      date: 'Monday, 24th August 2026',
-      time: '4:00 PM – 6:00 PM',
-      location: 'Chanakya seminar hall, DIT University',
-      head: 'Aanandi Bhatt & Karan Gulati',
-      title: 'UNMUTE YOURSELF',
-      description: 'Polish Your Presence, Perfect Your Future!\n\n• Nurture Focus: Enhance mental focus and goal-oriented concentration.\n• Sharpen Reflexes: Improve your response and reaction to challenges.\n\n"Find your voice, own your personality"',
-      featured: true,
-      eventPhotos: ['/unmute-yourself-poster.png']
-    }
-  ]);
+  const [events, setEvents] = useState([]);
 
   useEffect(() => {
     const loadEvents = async () => {
@@ -27,11 +14,15 @@ function UpcomingEvents() {
           id: e.id,
           image: e.coverphoto || 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&h=400&fit=crop',
           date: e.eventdate,
+          time: '', // The backend doesn't provide a distinct time field
+          location: e.location,
+          head: e.eventhead,
           title: e.eventname,
           description: e.description,
-          featured: false
+          featured: false,
+          eventPhotos: e.eventphotos || []
         }));
-        setEvents(prev => [...prev, ...upcoming]);
+        setEvents(upcoming);
       } catch (error) {
         console.error("Error fetching events:", error);
       }

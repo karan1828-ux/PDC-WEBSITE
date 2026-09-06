@@ -10,16 +10,24 @@ function PastEvents() {
 
   useEffect(() => {
     const loadEvents = async () => {
-      const data = await fetchAllEvents();
-      const past = data.filter(e => e.eventschedule === 'past').map((e, idx) => ({
-        id: e.id,
-        image: e.coverphoto || annualSummitImg,
-        date: e.eventdate,
-        title: e.eventname,
-        description: e.description,
-        featured: idx === 0
-      }));
-      setEvents(past);
+      try {
+        const data = await fetchAllEvents();
+        const past = data.filter(e => e.eventschedule === 'past').map((e, idx) => ({
+          id: e.id,
+          image: e.coverphoto || annualSummitImg,
+          date: e.eventdate,
+          time: '',
+          location: e.location,
+          head: e.eventhead,
+          title: e.eventname,
+          description: e.description,
+          featured: idx === 0,
+          eventPhotos: e.eventphotos || []
+        }));
+        setEvents(past);
+      } catch (error) {
+        console.error("Error fetching past events:", error);
+      }
     };
     loadEvents();
   }, []);
@@ -55,6 +63,10 @@ function PastEvents() {
               title={event.title}
               description={event.description}
               featured={event.featured}
+              time={event.time}
+              location={event.location}
+              head={event.head}
+              eventPhotos={event.eventPhotos}
             />
           ))}
         </div>

@@ -9,6 +9,21 @@ const client = axios.create({
   }
 });
 
+// Global API Error Logging Interceptor for Browser Console
+client.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    const originalRequest = error.config;
+    if (error.response) {
+      console.error(`%c[API FAILURE] %c${originalRequest.method.toUpperCase()} ${originalRequest.url} - Status: ${error.response.status}`, 'color: red; font-weight: bold;', 'color: orange;');
+      console.error('%cResponse Data:', 'color: yellow;', error.response.data);
+    } else {
+      console.error(`%c[API NETWORK ERROR] %c${originalRequest.method.toUpperCase()} ${originalRequest.url}`, 'color: red; font-weight: bold;', 'color: orange;', error.message);
+    }
+    return Promise.reject(error);
+  }
+);
+
 export async function fetchTop10Members() {
   try {
     const response = await client.get('/member/getTop10');
@@ -39,85 +54,19 @@ export async function fetchAllEvents() {
   }
 }
 
-// --- API & Auth ---
-export async function checkApiStatus(data) {
-  const response = await client.post('/api/status', data);
-  return response.data;
-}
-
-export async function sendApiEmail(data) {
-  const response = await client.post('/api/send', data);
-  return response.data;
-}
-
-export async function signIn(credentials) {
-  const response = await client.post('/api/signIn', credentials);
-  return response.data;
-}
-
-export async function refreshToken(tokenData) {
-  const response = await client.post('/api/refreshToken', tokenData);
-  return response.data;
-}
-
 // --- Events ---
-export async function addEvent(eventData) {
-  const response = await client.post('/event/addEvent', eventData);
-  return response.data;
-}
-
-export async function deleteEvent(id) {
-  const response = await client.delete(`/event/deleteEvent/${id}`);
-  return response.data;
-}
-
-export async function updateEvent(id, eventData) {
-  const response = await client.post(`/event/updateEvent/${id}`, eventData);
-  return response.data;
-}
-
 export async function fetchParticularEvent(id) {
   const response = await client.get(`/event/getParticularEvent/${id}`);
   return response.data;
 }
 
 // --- Members ---
-export async function addMember(memberData) {
-  const response = await client.post('/member/addMember', memberData);
-  return response.data;
-}
-
-export async function updateMember(memberData) {
-  const response = await client.put('/member/updateMember', memberData);
-  return response.data;
-}
-
-export async function deleteMember(data) {
-  const response = await client.delete('/member/deleteMember', { data });
-  return response.data;
-}
-
 export async function fetchParticularMember(sapid) {
   const response = await client.get(`/member/getParticularMember/${sapid}`);
   return response.data;
 }
 
 // --- PPScore ---
-export async function addPPScore(scoreData) {
-  const response = await client.post('/ppscore/addppScore', scoreData);
-  return response.data;
-}
-
-export async function updatePPScore(scoreData) {
-  const response = await client.put('/ppscore/updateppScore', scoreData);
-  return response.data;
-}
-
-export async function deletePPScore(data) {
-  const response = await client.delete('/ppscore/deleteppScore', { data });
-  return response.data;
-}
-
 export async function fetchAllPPScores() {
   const response = await client.get('/ppscore/getAllppScore');
   return response.data;

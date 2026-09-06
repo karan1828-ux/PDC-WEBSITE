@@ -4,72 +4,67 @@ import { fetchAllMembers } from '../../services/api'
 import profileImg from '../../assets/profile.png'
 
 function Team() {
-  const [teamGroups, setTeamGroups] = useState([
-    {
-      title: "ADVISORY BOARD",
-      members: [
-        { id: 1, name: 'MAYANK SHARMA', role: 'CHAIR PERSON', image: profileImg, quote: 'Growth happens outside your comfort zone.' },
-        { id: 2, name: 'AANANDI BHATT', role: 'PRESIDENT', image: profileImg, quote: 'Growth happens outside your comfort zone.' },
-        { id: 3, name: 'KARAN GULATI', role: 'VICE PRESIDENT', image: profileImg, quote: 'Growth happens outside your comfort zone.' }
-      ]
-    },
-    {
-      title: "HR",
-      members: [
-        { id: 4, name: 'ARADHYE MITTAL', role: 'HR', image: profileImg, quote: 'Growth happens outside your comfort zone.' }
-      ]
-    },
-    {
-      title: "TREASURER",
-      members: [
-        { id: 5, name: 'ARYAN RAJ SHRIVASSTAVA', role: 'TREASURER', image: profileImg, quote: 'Growth happens outside your comfort zone.' }
-      ]
-    },
-    {
-      title: "EVENT MANAGEMENT",
-      members: [
-        { id: 6, name: 'ADITYA RANVEER SINGH', role: 'EVENT MANAGEMENT', image: profileImg, quote: 'Growth happens outside your comfort zone.' },
-        { id: 7, name: 'HIMANSHU YADAV', role: 'EVENT MANAGEMENT', image: profileImg, quote: 'Growth happens outside your comfort zone.' }
-      ]
-    },
-    {
-      title: "TECHNICAL HEAD",
-      members: [
-        { id: 8, name: 'ADITYA ARORA', role: 'TECHNICAL HEAD', image: profileImg, quote: 'Growth happens outside your comfort zone.' },
-        { id: 9, name: 'TANMAY PATWARY', role: 'TECHNICAL HEAD', image: profileImg, quote: 'Growth happens outside your comfort zone.' }
-      ]
-    },
-    {
-      title: "DOCUMENTATION",
-      members: [
-        { id: 10, name: 'ARJUN SINGH MEHTA', role: 'DOCUMENTATION', image: profileImg, quote: 'Growth happens outside your comfort zone.' }
-      ]
-    },
-    {
-      title: "SOCIAL MEDIA",
-      members: [
-        { id: 11, name: 'ISHAN ARYA', role: 'SOCIAL MEDIA', image: profileImg, quote: 'Growth happens outside your comfort zone.' },
-        { id: 12, name: 'SOMIL DUBEY', role: 'SOCIAL MEDIA', image: profileImg, quote: 'Growth happens outside your comfort zone.' }
-      ]
-    },
-    {
-      title: "DESIGN HEAD",
-      members: [
-        { id: 13, name: 'PRAKHAR', role: 'DESIGN HEAD', image: profileImg, quote: 'Growth happens outside your comfort zone.' },
-        { id: 14, name: 'ANSH JAISWAL', role: 'DESIGN HEAD', image: profileImg, quote: 'Growth happens outside your comfort zone.' }
-      ]
-    },
-    {
-      title: "PR HEAD",
-      members: [
-        { id: 15, name: 'AVIRAL SINGH', role: 'PR HEAD', image: profileImg, quote: 'Growth happens outside your comfort zone.' },
-        { id: 16, name: 'AVNI RAJ', role: 'PR HEAD', image: profileImg, quote: 'Growth happens outside your comfort zone.' }
-      ]
-    }
-  ]);
+  const [teamGroups, setTeamGroups] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // API fetch removed to use static list
+    async function loadMembers() {
+      try {
+        const members = await fetchAllMembers();
+
+        // Define how roles map to groups
+        const groupsConfig = [
+          { title: "ADVISORY BOARD", roles: ["CHAIR PERSON", "PRESIDENT", "VICE PRESIDENT"] },
+          { title: "HR", roles: ["HR"] },
+          { title: "TREASURER", roles: ["TREASURER"] },
+          { title: "EVENT MANAGEMENT", roles: ["EVENT MANAGEMENT"] },
+          { title: "TECHNICAL HEAD", roles: ["TECHNICAL HEAD", "TECHNICAL"] },
+          { title: "DOCUMENTATION", roles: ["DOCUMENTATION"] },
+          { title: "SOCIAL MEDIA", roles: ["SOCIAL MEDIA"] },
+          { title: "DESIGN HEAD", roles: ["DESIGN HEAD"] },
+          { title: "PR HEAD", roles: ["PR HEAD"] }
+        ];
+
+        const grouped = groupsConfig.map(config => {
+          return {
+            title: config.title,
+            members: members
+              .filter(m => config.roles.includes(m.role?.toUpperCase()))
+              .map(m => ({
+                id: m.sapid || m.id,
+                name: m.name,
+                role: m.role,
+                image: m.image_url && m.image_url !== 'default' ? m.image_url : profileImg,
+                quote: m.description || 'Growth happens outside your comfort zone.'
+              }))
+          };
+        }).filter(group => group.members.length > 0);
+
+        // Put any unmapped roles into an "OTHER MEMBERS" category
+        const assignedRoles = groupsConfig.flatMap(g => g.roles);
+        const otherMembers = members.filter(m => !assignedRoles.includes(m.role?.toUpperCase()));
+
+        if (otherMembers.length > 0) {
+          grouped.push({
+            title: "OTHER MEMBERS",
+            members: otherMembers.map(m => ({
+              id: m.sapid || m.id,
+              name: m.name,
+              role: m.role,
+              image: m.image_url && m.image_url !== 'default' ? m.image_url : profileImg,
+              quote: m.description || 'Growth happens outside your comfort zone.'
+            }))
+          });
+        }
+
+        setTeamGroups(grouped);
+      } catch (error) {
+        console.error("Failed to load members:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+    loadMembers();
   }, []);
   return (
     <section id="team" className="bg-[#f8fafc] py-12 sm:py-16 px-5 sm:px-8" aria-labelledby="team-heading">

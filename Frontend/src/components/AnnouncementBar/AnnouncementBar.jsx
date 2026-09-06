@@ -29,7 +29,7 @@ function AnnouncementBar({ empty = false }) {
   const marqueeContent = upcomingEvents.map((event, index) => (
     <span key={event.id || index} className="inline-flex items-center pr-1">
       <span className="text-white/40 mx-2 sm:mx-4 font-light" aria-hidden="true">|</span>
-      <Link to="/upcoming-events" className="hover:text-[#f0a04b] transition-colors cursor-pointer">
+      <Link to="/events" className="hover:text-[#f0a04b] transition-colors cursor-pointer">
         {event.eventname || event.title}
       </Link>
     </span>

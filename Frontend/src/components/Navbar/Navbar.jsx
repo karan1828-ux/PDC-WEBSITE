@@ -5,7 +5,7 @@ import Logo from './Logo'
 
 const NAV_LINKS = [
   { label: 'HOME', href: '/' },
-  { label: 'EVENTS', href: '/upcoming-events' },
+  { label: 'EVENTS', href: '/events' },
   // { label: 'PERSONALITY %', href: '/personality' },
   // { label: 'ACHIEVEMENTS', href: '/achievements' },
   { label: 'TEAMS', href: '/teams' },
